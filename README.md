@@ -6,7 +6,7 @@
 <details><summary>Compiler</summary>
 <p>
 
-> ## Compiler
+## Compiler
  [Compiler](https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/?ref=lbp): Chuyển đổi ngôn ngữ bậc cao sang ngôn ngữ máy
  
 
@@ -69,7 +69,7 @@ main.o -o filename
 <details><summary>Macro</summary>
 <p>
 
->## Macro 
+## Macro 
 [Macro](https://www.geeksforgeeks.org/macros-and-its-types-in-c-cpp/?ref=header_search) là những thông tin được xử lý ở quá trình tiền xử lý ( Preprocessor).
 
 
@@ -131,7 +131,7 @@ SQUARE là một macro, và mỗi khi chương trình biên dịch gặp SQUARE(
 
 ## '#undef ' được sử dụng để hủy định nghĩa của một macro trước đó đã được định nghĩa bằng #define
 
-```
+```c
 #define MAX_SIZE 100
 #undef MAX_SIZE
 ```
@@ -148,7 +148,7 @@ SQUARE là một macro, và mỗi khi chương trình biên dịch gặp SQUARE(
 
 - #else: Được sử dụng khi không có điều kiện nào trong #if hoặc #elif trước đó là đúng.
 
-```
+```c
 #include <stdio.h>
 
 #define DEBUG_MODE 1
@@ -179,7 +179,7 @@ Là các directive (chỉ thị tiền xử lý) được sử dụng để ki�
 
 ## Toán tử trong Macro
 >  vd toán tử '#'
-```
+```c
 #include <stdio.h>
 #define STRINGIZE(x) #x
 #define DATA 40
@@ -190,59 +190,77 @@ int main() {
     return 0;
   }
 ```
+
+> toán tử '##'
+
+nối 
+
+> toán tử '/'
+xuống hàng
+
 ### Variadic macro
 
 Variadic Marco: Là một dạng macro cho phép nhận một số lượng biến tham số có thể thay đổi.
+Giúp định nghĩa các macro có thể xử lý một lượng biến đầu vào khác nhau
 
 > Ví dụ
 
    ``` c
-   #include <stdio.h>
+  #include <stdio.h>
 
- 	#define print_menu_item(...) \
- 		do { \
- 			const char *items[] = {__VA_ARGS__}; \
- 			int n = sizeof(items) / sizeof(items[0]); \
- 			for (int i = 0; i < n; i++) { \
- 				print_menu_item(i + 1, items[i]); \
- 			} \
- 		} while (0)
+#define CASE_OPTION(number, function) case number: function(); break;
+#define HANDLE_OPTION(option, ...) \
+    switch (option) { \ //switch case
+        __VA_ARGS__ \
+        default: printf("Invalid option!\n"); \
+    }
+// #define PRINT_MENU(...) printf(__VA_ARGS__);
 
- 	#define case_option(number, function) \
- 		case number: \
- 			function(); \
- 			break;
+#define PRINT_MENU_ITEM(number, item) printf("%d. %s\n", number, item)
 
- 	#define handle_option(option, ...) \
- 		switch (option) { \
- 			__VA_ARGS__ \
- 			default: \
- 				printf("Invalid option!\n"); \
- 		}
+#define PRINT_MENU(...) \
+        const char* items[] = {__VA_ARGS__}; \
+        int n = sizeof(items) / sizeof(items[0]); \
+        for (int i = 0; i < n; i++) { \
+            PRINT_MENU_ITEM(i + 1, items[i]); \
+        } \
 
- 	void print_menu_item(int number, const char *item) {
- 			printf("%d. %s\n", number, item);
- 		}
+void feature1() {
+    printf("You chose feature 1.\n");
+}
 
- 	void feature1() { printf("Feature 1 selected\n"); }
- 	void feature2() { printf("Feature 2 selected\n"); }
- 	void feature3() { printf("Feature 3 selected\n"); }
- 	void feature4() { printf("Feature 4 selected\n"); }
+void feature2() {
+    printf("You chose feature 2.\n");
+}
 
- 	int main() {
- 		print_menu_item("Option 1", "Option 2", "Option 3", "Option 4", "Exit");
+void feature3() {
+    printf("You chose feature 3.\n");
+}
 
- 		int option;
- 		scanf("%d", &option);
+void feature4() {
+    printf("You chose feature 4.\n");
+}
 
- 		handle_option(option,
- 					case_option(1, feature1)
- 					case_option(2, feature2)
- 					case_option(3, feature3)
- 					case_option(4, feature4)
- 		)
+int main() {
+    // PRINT_MENU("1. Option 1\n2. Option 2\n3. Option 3\n4. Option 4\n5. Exit\n");
 
- 		return 0;
+    PRINT_MENU("Option 1", "Option 2", "Option 3","Option4", "Exit");
+
+    // Giả sử option được nhập từ người dùng
+    int option;
+    scanf("%d", &option);
+
+    HANDLE_OPTION(option,
+        CASE_OPTION(1, feature1)
+        CASE_OPTION(2, feature2)
+        CASE_OPTION(3, feature3)
+        CASE_OPTION(4, feature4)
+    )
+
+    return 0;
+}
+
+
 ```
 
 
@@ -275,6 +293,76 @@ Trả lời:
 </details>
 
 
+<details><summary>Bài 2: STDARG - ASSERT</summary>
+<p>
 
+> ## stdarg - assert
+
+## stdarg
+
+Cung cấp các phương thức để làm việc với các hàm có số lượng input parameter không cố định.
+
+Các hàm như `printf` và `scanf` là ví dụ điển hình 
+
+ - va_list: là một kiểu dữ liệu để đại diện cho danh sách các đối số biến đổi
+
+ - va_start: Khởi tạo biến để trỏ đến đối số biến đầu tiên.va_list
+
+ - va_arg: Truy xuất giá trị của đối số tiếp theo trong danh sách, với kiểu của nó.
+
+ - va_end: Dọn sạch biến sau khi tất cả các đối số đã được xử lý.va_list
+
+### ví dụ minh họa cách sử dụng:`stdarg`
+```c
+
+#include <stdio.h>
+#include <stdarg.h>
+
+void print_ints(int num, ...) {
+    va_list args;
+    va_start(args, num);
+    for (int i = 0; i < num; ++i) {
+        int value = va_arg(args, int);
+        printf("%d ", value);
+    }
+    va_end(args);
+    printf("\n");
+}
+
+int main() {
+    print_ints(3, 1, 2, 3);
+    print_ints(5, 10, 20, 30, 40, 50);
+    return 0;
+}
+
+```
+Trong ví dụ này, là một hàm chấp nhận một số lượng đối số nguyên thay đổi. Nó sử dụng macro để lặp lại các đối số được cung cấp và in chúng ra.print_ints()stdarg
+
+## assert
+
+`assert` là một macro trong ngôn ngữ lập trình C và C ++ được sử dụng cho mục đích gỡ lỗi. Nó đánh giá một biểu thức và nếu biểu thức đánh giá là false (không), nó sẽ gây ra lỗi xác nhận, thường *`tạm dừng thực thi chương trình và in thông báo lỗi.`*
+
+### vd
+```c
+#include <stdio.h>
+#include <assert.h>
+
+int main() {
+    int x = 5;
+    assert(x == 10);
+    printf("This line will not be reached if assertion fails.\n");
+    return 0;
+}
+
+```
+cmd
+```
+Assertion failed: (x == 10), file example.c, line 6.
+
+```
+`assert` thường bị vô hiệu hóa trong các bản dựng sản xuất vì chúng có thể ảnh hưởng đáng kể đến hiệu suất 
+
+</p>
+</details>
 
 
