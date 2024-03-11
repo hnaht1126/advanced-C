@@ -362,7 +362,316 @@ Assertion failed: (x == 10), file example.c, line 6.
 ```
 `assert` thường bị vô hiệu hóa trong các bản dựng sản xuất vì chúng có thể ảnh hưởng đáng kể đến hiệu suất 
 
+
+
 </p>
 </details>
+<details><summary>Bài 4: Memory layout</summary>
+<p>
 
+> ## Memory layout
+
+Chương trình main.exe ( trên window), main.hex ( nạp vào vi điều khiển) được lưu ở bộ nhớ SSD hoặc FLASH. Khi nhấn run chương trình trên window ( cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
+
+## Memory layout
+
+Việc tổ chức dữ liệu trong bộ nhớ của hệ thống máy tính. Nó xác định cách dữ liệu được lưu trữ, truy cập và quản lý trong hệ thống phân cấp bộ nhớ của hệ thống.
+
+Bố cục bộ nhớ thường bao gồm việc sắp xếp các phân đoạn bộ nhớ khác nhau, chẳng hạn như:
+
+![image](https://github.com/hnaht1126/advanced-C/assets/152061415/7868dafa-ceee-4d9d-9313-a8d52b7ec365)
+
+
+
+## Code Segment (Text Segment)
+
+Chứa mã thực thi của một chương trình.
+
+chỉ đọc và thực thi, không có quyền ghi. 
+
+Lưu hằng số, con trỏ kiểu char
+
+Tất cả các biến lưu ở phần vùng Text đều không thể thay đổi giá trị mà chỉ được đọc
+
+```c
+#include <stdio.h>
+
+const int a = 10;
+char arr[] = "Hello";
+char *arr1 = "Hello";
+
+int main() {
+   
+
+    printf("a: %d\n", a);
+
+    arr[3] = 'W';
+    printf("arr: %s", arr);
+
+    arr1[3] = 'E';
+    printf("arr1: %s", arr1);
+
+    
+    return 0;
+}
+
+```
+
+## Data Segment
+
+Phân đoạn này chứa các `biến toàn cục` và `biến static` của chương trình. 
+
+Nó có thể được chia tiếp thành
+
+### Dữ liệu khởi tạo (biến khởi tạo - initialized variables)
+
+- (khởi tạo giá trị !=0)
+
+- đọc ghi, thay đổi giá trị của biến.
+
+- All các biến thu hồi sau khi chương trình kết thúc. (windown- thoát khỏi hàm main, VĐK - ngắt nguồn)
+
+```c
+#include <stdio.h>
+
+int a = 10;
+double d = 20.5;
+
+static int var = 5;
+
+void test()
+{
+    static int local = 10;
+}
+
+
+int main(int argc, char const *argv[])
+{  
+    a = 15;
+    d = 25.7;
+    var = 12;
+    printf("a: %d\n", a);
+    printf("d: %f\n", d);
+    printf("var: %d\n", var);
+
+
+
+    return 0;
+}
+```
+
+### Dữ liệu chưa khởi tạo (biến chưa khởi tạo - uninitialized variables, còn được gọi là phân đoạn BSS).
+
+- Giá trị khởi tạo = 0 / không gán giá trị.
+
+- Đọc - ghi 
+
+- All các biến thu hồi sau khi chương trình kết thúc. 
+
+```c
+#include <stdio.h>
+
+
+typedef struct 
+{
+    int x;
+    int y;
+} Point_Data;
+
+
+int a = 0;
+int b;
+
+static int global = 0;
+static int global_2;
+
+static Point_Data p1 = {5,7};
+
+
+
+void test()
+{
+    static int local = 0;
+    static int local_2;
+}
+
+int main() {
+
+    
+    printf("a: %d\n", a);
+    printf("global: %d\n", global);
+   
+
+    
+    
+    return 0;
+}
+```
+
+### Stack
+được sử dụng để Cấp phát bộ nhớ động và quản lý lệnh gọi hàm. 
+
+ lưu trữ các biến cục bộ, tham số hàm, địa chỉ trả về và thông tin liên quan đến lệnh gọi hàm khác. 
+ 
+ Ngăn xếp thường phát triển xuống trong bộ nhớ.
+
+ Đọc - ghi trong thời gian chương trình chạy 
+
+ thu hồi khi thoát khỏi vùng nhớ
+
+ ```c
+#include <stdio.h>
+
+
+void test()
+{
+    int test = 0;
+    test = 5;
+    printf("test: %d\n",test);
+}
+
+int sum(int a, int b)
+{
+    int c = a + b;
+    printf("sum: %d\n",c);
+    return c;
+}
+
+
+
+int main() {
+
+    sum(3,5);
+    /*
+        0x01
+        0x02
+        0x03
+    */
+   test();
+   /*
+    int test = 0; // 0x01
+   */
+
+
+    
+    return 0;
+}
+ ```
+
+ ### Heap
+
+Heap là vùng bộ nhớ được sử dụng để cấp phát bộ nhớ động trong quá trình thực thi của chương trình.
+
+Nó được quản lý bởi người lập trình hoặc bởi các hàm cấp phát bộ nhớ như malloc() và free(), cho phép chương trình tạo ra và giải phóng bộ nhớ theo nhu cầu, thích ứng với sự biến đổi của dữ liệu trong quá trình chạy.
+
+ Heap thường tăng lên trong bộ nhớ.
+
+> Quyền truy cập: có quyền đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
+
+
+  - `malloc()`:  <stdlib.h>
+        
+    Tham số truyền vào: kích thước mong muốn ( byte) 
+
+     Giá trị trả về: con trỏ void
+```c
+     void *malloc(size_t size);
+```
+
+`calloc()`:
+
+   tương tự malloc, nhưng khởi tạo bộ nhớ được cấp phát = 0.
+
+```c
+void *calloc(size_t num_elements, size_t element_size);
+```
+
+num_elements: Số lượng phần tử để phân bổ bộ nhớ.
+element_size: Kích thước của mỗi phần tử tính bằng byte.
+
+*Tự tìm phân vùng đủ cho dữ liệu*
+
+```c
+#include <stdlib.h>
+
+int main() {
+    int *arr_malloc, *arr_calloc;
+    size_t size = 5;
+
+    // Sử dụng malloc
+    arr_malloc = (int*)malloc(size * sizeof(int));
+
+    // Sử dụng calloc
+    arr_calloc = (int*)calloc(size, sizeof(int));
+
+    // ...
+
+    // Giải phóng bộ nhớ
+    free(arr_malloc);
+    free(arr_calloc);
+
+    return 0;
+}
+```
+
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+int main(int argc, char const *argv[])
+{  
+    int soluongkytu = 0;
+
+    char* ten = (char*) malloc(sizeof(char) * soluongkytu);
+
+
+
+    for (int i = 0; i < 3; i++)
+    {
+        printf("Nhap so luong ky tu trong ten: \n");
+        scanf("%d", &soluongkytu);
+        ten = realloc(ten, sizeof(char) * soluongkytu);
+        printf("Nhap ten cua ban: \n");
+        scanf("%s", ten);
+
+        printf("Hello %s\n", ten);
+    }
+    
+
+    
+
+    return 0;
+}
+```
+ ## Stack và Heap
+Bộ nhớ Stack được dùng để lưu trữ các biến cục bộ trong hàm, tham số truyền vào... Truy cập vào bộ nhớ này rất nhanh và được thực thi khi chương trình được biên dịch.
+
+Bộ nhớ Heap được dùng để lưu trữ vùng nhớ cho những biến con trỏ được cấp phát động bởi các hàm malloc - calloc - realloc (trong C).
+
+`Stack`: vùng nhớ Stack được quản lý bởi hệ điều hành, dữ liệu được lưu trong Stack sẽ tự động giải phóng khi hàm thực hiện xong công việc của mình.
+
+`Heap`: Vùng nhớ Heap được quản lý bởi lập trình viên (trong C hoặc C++), dữ liệu trong Heap sẽ không bị hủy khi hàm thực hiện xong, điều đó có nghĩa bạn phải tự tay giải phóng vùng nhớ bằng câu lệnh free (trong C), và delete hoặc delete [] (trong C++), nếu không sẽ xảy ra hiện tượng rò rỉ bộ nhớ. 
+
+>## Lỗi tràn bộ nhớ
+Stack: bởi vì bộ nhớ Stack cố định nên nếu chương trình bạn sử dụng quá nhiều bộ nhớ vượt quá khả năng lưu trữ của Stack chắc chắn sẽ xảy ra tình trạng tràn bộ nhớ Stack (Stack overflow), các trường hợp xảy ra như bạn khởi tạo quá nhiều biến cục bộ, hàm đệ quy vô hạn,...
+```c
+
+int foo(int x)
+    printf("De quy khong gioi han\n")
+        return foo(x);
+}
+```
+
+Heap: Nếu bạn liên tục cấp phát vùng nhớ mà không giải phóng thì sẽ bị lỗi tràn vùng nhớ Heap (Heap overflow). Nếu bạn khởi tạo một vùng nhớ quá lớn mà vùng nhớ Heap không thể lưu trữ một lần được sẽ bị lỗi khởi tạo vùng nhớ Heap thất bại.
+
+```c
+int *A = (int *)malloc(18446744073709551615);
+```
+
+
+</p>
+</details>
 
