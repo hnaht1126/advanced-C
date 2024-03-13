@@ -3,8 +3,6 @@
 <p>
 
 > ##  Bài 1: Compiler - Macro
-<details><summary>Compiler</summary>
-<p>
 
 ## Compiler
  [Compiler](https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/?ref=lbp): Chuyển đổi ngôn ngữ bậc cao sang ngôn ngữ máy
@@ -61,13 +59,7 @@ main.o -o filename
 - file `.s` thường là các tệp mã nguồn dạng văn bản chứa mã nguồn đã được viết bằng một ngôn ngữ lập trình hợp ngữ như Assembly.
 
 - flie `.exe` thường là các tệp chứa mã máy thực thi cho các ứng dụng chạy trên hệ điều hành Windows
-</p>
-</details>
 
-
-
-<details><summary>Macro</summary>
-<p>
 
 ## Macro 
 [Macro](https://www.geeksforgeeks.org/macros-and-its-types-in-c-cpp/?ref=header_search) là những thông tin được xử lý ở quá trình tiền xử lý ( Preprocessor).
@@ -285,9 +277,6 @@ Trả lời:
 4.Bảo trì: Macro có thể yêu cầu bảo trì và cập nhật, điều này có thể tốn thời gian và tốn kém.
 5. Phụ thuộc: Quá phụ thuộc vào macro có thể dẫn đến giảm kỹ năng giải quyết vấn đề và tư duy phản biện.
 
-
-</p>
-</details>
 
 </p>
 </details>
