@@ -154,11 +154,13 @@ int main() {
 
     return 0;
 }
-
-```
+/*
 - Nếu DEBUG_MODE được định nghĩa là 1, câu lệnh printf("Debug mode is enabled.\n"); sẽ được biên dịch.
 - Nếu DEBUG_MODE là 0, câu lệnh printf("Debug mode is disabled.\n"); sẽ được biên dịch.
 - Nếu không có giá trị nào của DEBUG_MODE được định nghĩa, câu lệnh printf("Unknown debug mode.\n"); sẽ được biên dịch.
+*/
+```
+
 
 ## #ifdef và #ifndef
 Là các directive (chỉ thị tiền xử lý) được sử dụng để kiểm tra xem một macro đã được định nghĩa trước đó chưa.
@@ -650,6 +652,154 @@ int foo(int x)
 
 ```c
 int *A = (int *)malloc(18446744073709551615);
+```
+# Bài 5: Extern - Static - Volatile - Register
+
+## Extern 
+- tự tìm biến đã được khai báo
+
+Khi sử dụng `Extern` khai báo biến, trình biên dịch hiểu rằng biến đã được khai báo ở một nơi khác và trình biên dịch sẽ tìm kiếm biến này ở các file khác trong quá trình liên kết.
+
+## Static local variables 
+- giữ giá trị biến ở những lần gọi tiếp
+
+(biến cục bộ - khai báo biến trong một hàm), nó giữ giá trị của biến qua các lần gọi hàm (giá trị của nó được bảo tồn giữa các lần gọi) và giữ phạm vi của biến chỉ trong hàm đó. 
+```c
+#include <stdio.h>
+
+void exampleFunction() {
+    static int count = 0; // Biến cục bộ tĩnh
+    count++;
+    printf("This function has been called %d times.\n", count);
+}
+
+int main() {
+    exampleFunction(); // In ra "This function has been called 1 times."
+    exampleFunction(); // In ra "This function has been called 2 times."
+    exampleFunction(); // In ra "This function has been called 3 times."
+    return 0;
+}
+
+```
+ biến count được khai báo là một biến cục bộ tĩnh trong hàm exampleFunction(). Mỗi lần hàm được gọi, biến count tăng lên một và giá trị của nó được giữ qua các lần gọi tiếp theo của hàm.
+
+ ## Static global variables 
+ - chỉ được sử dụng trong cùng một file mà nó được khai báo.
+
+ **Ứng dụng:** dùng để thiết kế các file thư viện.
+
+ Static global variables hay được gọi là "biến toàn cục tĩnh", là biến mà chỉ có phạm vi trong file mà nó được khai báo. Tức là, biến này **không thể truy cập từ các file khác thông qua việc sử dụng từ khóa extern**. Biến toàn cục tĩnh chỉ được sử dụng trong cùng một file mà nó được khai báo.
+```c
+// File: test.c
+#include <stdio.h>
+
+static int globalVar = 10;
+
+void printGlobalVar() {
+    printf("Global variable: %d\n", globalVar);
+}
+
+void modifyGlobalVar() {
+    globalVar += 5;
+}
+
+int main() {
+    printGlobalVar(); // In ra "Global variable: 10"
+    modifyGlobalVar();
+    printGlobalVar(); // In ra "Global variable: 15"
+    return 0;
+}
+```
+biến globalVar không thể truy cập từ các file khác thông qua extern.
+
+## Static trong class 
+Trong một lớp, **biến tĩnh (static member)** là một biến mà nó thuộc về lớp chứ không thuộc về mỗi đối tượng của lớp đó.
+
+Mọi đối tượng của lớp đều chia sẻ một bản sao duy nhất của biến tĩnh. Các biến tĩnh được ***cấp phát bộ nhớ khi chương trình bắt đầu chạy và tồn tại cho đến khi chương trình kết thúc.***
+
+Tương tự, **phương thức tĩnh (static method)** là một phương thức mà nó thuộc về lớp chứ không phải thuộc về các đối tượng của lớp đó. Phương thức tĩnh có thể được gọi mà không cần tạo ra một đối tượng của lớp đó.
+
+```c
+#include <iostream>
+
+class MyClass {
+public:
+    static int staticVariable;
+    static void staticMethod() {
+        std::cout << "This is a static method.\n";
+    }
+};
+
+int MyClass::staticVariable = 0;
+
+int main() {
+    // Gọi phương thức tĩnh của lớp mà không cần tạo đối tượng
+    MyClass::staticMethod();
+
+    // Truy cập biến tĩnh qua một đối tượng
+    MyClass obj1;
+
+    obj1.staticVariable = 5;
+
+    // Truy cập biến tĩnh qua một đối tượng khác
+    MyClass obj2;
+
+    std::cout << obj2.staticVariable << std::endl; // In ra 5
+
+    return 0;
+}
+```
+`staticVariable `là biến tĩnh và `staticMethod` là phương thức tĩnh của lớp `MyClass`. Cả hai đều thuộc về lớp ` MyClass `chứ không phải thuộc về mỗi đối tượng của lớp.
+
+## Volatile
+ - Sử dụng khi biến có sự thay đổi giá trị -> đọc 1 lần khi compiler.
+
+được sử dụng để đánh dấu một biến như là "volatile". ***Giá trị của biến có thể thay đổi bất kỳ lúc nào bởi các yếu tố mà không được kiểm soát bởi chương trình***, chẳng hạn như phần cứng hoặc các luồng khác.
+
+Việc sử dụng volatile thông báo cho trình biên dịch không nên tối ưu hóa hoặc loại bỏ bất kỳ mã nào liên quan đến biến đó, bởi vì giá trị của nó có thể thay đổi không lường trước. 
+
+**Ứng dụng** trong các trường hợp như truy cập các biến được chia sẻ giữa các luồng hoặc trong truy cập vào các biến được cập nhật bởi phần cứng.
+
+```c
+// đọc giá trị cảm biến 
+#include <stdio.h>
+
+int main() {
+    volatile int sensorValue;
+
+    while (1) {
+        // Đọc giá trị từ cảm biến (giả sử)
+        sensorValue = readSensor();
+
+        // In giá trị cảm biến ra màn hình
+        printf("Sensor Value: %d\n", sensorValue);
+    }
+
+    return 0;
+}
+```
+việc sử dụng volatile đảm bảo rằng trình biên dịch sẽ luôn đọc lại giá trị mới nhất của biến sensorValue mỗi khi nó được truy cập.
+
+## Register
+
+Trong ngôn ngữ lập trình C, từ khóa `register` được sử dụng để yêu cầu trình biên dịch cấp phát một biến cục bộ cho một thanh ghi máy tính. Giúp cải thiện hiệu suất truy cập vào biến đó bởi vì việc sử dụng thanh ghi có thể nhanh hơn so với việc truy cập bộ nhớ.
+
+Tuy nhiên, trình biên dịch thường có thể tự động quyết định xem có sử dụng thanh ghi cho biến cục bộ hay không, và nó thường tốt hơn trong việc tối ưu hóa mã.
+
+Một số lưu ý về từ khóa register:
+
+1. Trình biên dịch có thể bỏ qua từ khóa register và xem nó như là một yêu cầu tùy chọn.
+2. Không thể lấy địa chỉ của một biến được khai báo với từ khóa register, vì vậy chúng không thể được sử dụng trong các trường hợp như truyền con trỏ.
+3. Việc sử dụng register có thể không có hiệu quả nếu trình biên dịch không thực sự chuyển biến vào thanh ghi.
+```c
+// cấp phát biến x cho thanh ghi
+#include <stdio.h>
+
+int main() {
+    register int x = 10; // Yêu cầu cấp phát biến x cho một thanh ghi
+    printf("x = %d\n", x);
+    return 0;
+}
 ```
 
 # Bài 7: Bitmask
