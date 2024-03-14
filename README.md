@@ -1,6 +1,6 @@
 advanced-C
 
-Bài 1: Compiler - Macro
+# Bài 1: Compiler - Macro
 
 ## Compiler
  [Compiler](https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/?ref=lbp): Chuyển đổi ngôn ngữ bậc cao sang ngôn ngữ máy
@@ -279,7 +279,7 @@ Trả lời:
 
 
 
-Bài 2: STDARG - ASSERT
+# Bài 2: STDARG - ASSERT
 
 ## stdarg
 
@@ -347,7 +347,7 @@ Assertion failed: (x == 10), file example.c, line 6.
 
 
 
-Bài 4: Memory layout
+# Bài 4: Memory layout
 
 
 ## Memory layout
@@ -489,7 +489,7 @@ int main() {
 }
 ```
 
-### Stack
+## Stack
 được sử dụng để Cấp phát bộ nhớ động và quản lý lệnh gọi hàm. 
 
  lưu trữ các biến cục bộ, tham số hàm, địa chỉ trả về và thông tin liên quan đến lệnh gọi hàm khác. 
@@ -539,7 +539,7 @@ int main() {
 }
  ```
 
- ### Heap
+ ## Heap
 
 Heap là vùng bộ nhớ được sử dụng để cấp phát bộ nhớ động trong quá trình thực thi của chương trình.
 
@@ -637,7 +637,7 @@ Bộ nhớ Heap được dùng để lưu trữ vùng nhớ cho những biến c
 `Heap`: Vùng nhớ Heap được quản lý bởi lập trình viên (trong C hoặc C++), dữ liệu trong Heap sẽ không bị hủy khi hàm thực hiện xong, điều đó có nghĩa bạn phải tự tay giải phóng vùng nhớ bằng câu lệnh free (trong C), và delete hoặc delete [] (trong C++), nếu không sẽ xảy ra hiện tượng rò rỉ bộ nhớ. 
 
 >## Lỗi tràn bộ nhớ
-Stack: bởi vì bộ nhớ Stack cố định nên nếu chương trình bạn sử dụng quá nhiều bộ nhớ vượt quá khả năng lưu trữ của Stack chắc chắn sẽ xảy ra tình trạng tràn bộ nhớ Stack (Stack overflow), các trường hợp xảy ra như bạn khởi tạo quá nhiều biến cục bộ, hàm đệ quy vô hạn,...
+**Stack:** bởi vì bộ nhớ Stack cố định nên nếu chương trình sử dụng quá nhiều bộ nhớ **vượt quá khả năng lưu trữ của Stack** chắc chắn sẽ xảy ra tình trạng tràn bộ nhớ Stack (Stack overflow), các trường hợp xảy ra như bạn `khởi tạo quá nhiều biến cục bộ, hàm đệ quy vô hạn,...`
 ```c
 
 int foo(int x)
@@ -646,22 +646,26 @@ int foo(int x)
 }
 ```
 
-Heap: Nếu bạn liên tục cấp phát vùng nhớ mà không giải phóng thì sẽ bị lỗi tràn vùng nhớ Heap (Heap overflow). Nếu bạn khởi tạo một vùng nhớ quá lớn mà vùng nhớ Heap không thể lưu trữ một lần được sẽ bị lỗi khởi tạo vùng nhớ Heap thất bại.
+**Heap:** Nếu bạn **liên tục cấp phát vùng nhớ mà không giải phóng** thì sẽ bị lỗi tràn vùng nhớ Heap (Heap overflow). Nếu bạn khởi tạo một vùng nhớ quá lớn mà vùng nhớ Heap không thể lưu trữ một lần được sẽ bị lỗi khởi tạo vùng nhớ Heap thất bại.
 
 ```c
 int *A = (int *)malloc(18446744073709551615);
+```
 
-Bài 7: Bitmask
+# Bài 7: Bitmask
 
 ## Bitmask
-Quá trình sửa đổi và sử dụng các biểu diễn nhị phân của số hoặc bất kỳ dữ liệu nào
+Quá trình sửa đổi và sử dụng các biểu diễn nhị phân của số hoặc dữ liệu 
 
 ### bitwise
-* OR (|) - đặt bit thành 1 nếu một trong hai bit tương ứng trong toán hạng là 1.
-* AND (&) - đặt một bit thành 1 nếu cả hai bit tương ứng trong toán hạng là 1.
-* XOR (^) - đặt bit thành 1 nếu các bit tương ứng trong toán hạng khác nhau.
+* OR (|) - đặt bit thành 1 nếu một trong hai bit tương ứng trong toán hạng là 1. (1 cái 1 -> 1)
+* AND (&) - đặt một bit thành 1 nếu cả hai bit tương ứng trong toán hạng là 1.  (nhân lại ra 1 -> 1)
+* XOR (^) - đặt bit thành 1 nếu các bit tương ứng trong toán hạng khác nhau. (tổng lẻ -> 1)
 * NOT (~) - đặt 0 thành 1 và 1 thành 0.
-```
+* shif-left (<<)  - dịch bit sang trái. (xóa trái thêm 0 phải )
+* shif- right (>>) - dịch bit sang phải. (xóa phải thêm 0 trái)
+### dùng để luu các biến chỉ cần 2 giá trị (0/1) -> giảm bộ nhớ 
+ 
 
 
 
