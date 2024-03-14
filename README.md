@@ -1,8 +1,6 @@
-# advanced-C
-<details><summary>Bài 1: Compiler - Macro</summary>
-<p>
+advanced-C
 
-> ##  Bài 1: Compiler - Macro
+Bài 1: Compiler - Macro
 
 ## Compiler
  [Compiler](https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/?ref=lbp): Chuyển đổi ngôn ngữ bậc cao sang ngôn ngữ máy
@@ -278,14 +276,10 @@ Trả lời:
 5. Phụ thuộc: Quá phụ thuộc vào macro có thể dẫn đến giảm kỹ năng giải quyết vấn đề và tư duy phản biện.
 
 
-</p>
-</details>
 
 
-<details><summary>Bài 2: STDARG - ASSERT</summary>
-<p>
 
-> ## stdarg - assert
+Bài 2: STDARG - ASSERT
 
 ## stdarg
 
@@ -353,12 +347,10 @@ Assertion failed: (x == 10), file example.c, line 6.
 
 
 
-</p>
-</details>
-<details><summary>Bài 4: Memory layout</summary>
-<p>
+Bài 4: Memory layout
 
-> ## Memory layout
+
+## Memory layout
 
 Chương trình main.exe ( trên window), main.hex ( nạp vào vi điều khiển) được lưu ở bộ nhớ SSD hoặc FLASH. Khi nhấn run chương trình trên window ( cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
 
@@ -661,6 +653,5 @@ int *A = (int *)malloc(18446744073709551615);
 ```
 
 
-</p>
-</details>
+
 
