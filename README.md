@@ -347,6 +347,51 @@ Assertion failed: (x == 10), file example.c, line 6.
 ```
 `assert` thường bị vô hiệu hóa trong các bản dựng sản xuất vì chúng có thể ảnh hưởng đáng kể đến hiệu suất 
 
+# Bài 3: Pointer
+
+## Pointer
+Pointer là một biến chứa địa chỉ bộ nhớ của một biến khác
+
+![image](https://github.com/hnaht1126/advanced-C/assets/152061415/b01a0c93-6b2f-42a9-b52c-b22cf9c3f130)
+
+Kích thước của con trỏ phụ thuộc vào kiến trúc máy tính và trình biên dịch
+
+## Void Pointer
+Con trỏ void trong C và C++ là  con trỏ có thể trỏ đến các đối tượng thuộc bất kỳ kiểu dữ liệu nào (không cần biết kiểu dữ liệu con trỏ trỏ tới). Con trỏ void được khai báo bằng kiểu `void *ptr.`
+```c
+// vd sử dụng con trỏ void
+
+/* 
+Trong ví dụ này, chúng ta có một con trỏ void ptr được gán địa chỉ của các biến có kiểu dữ liệu khác nhau (int, float và char). 
+** cần ép kiểu thích hợp khi lấy giá trị mà con trỏ trỏ tới
+ */
+#include <stdio.h>
+
+int main() {
+    int num = 10;
+    float pi = 3.14;
+    char letter = 'A';
+
+    // Declaring void pointer
+    void *ptr;
+
+    // Pointing void pointer to different types of data
+    ptr = &num;
+    printf("Value pointed by void pointer (integer): %d\n", *(int*)ptr);
+
+    ptr = &pi;
+    printf("Value pointed by void pointer (float): %.2f\n", *(float*)ptr);
+
+    ptr = &letter;
+    printf("Value pointed by void pointer (character): %c\n", *(char*)ptr);
+
+    return 0;
+}
+```
+## function pointer
+
+Con trỏ hàm (function pointer) là một biến có kiểu dữ liệu là con trỏ, nhưng thay vì chỉ trỏ đến một vùng nhớ chứa dữ liệu, nó trỏ đến một hàm cụ thể trong bộ nhớ. Con trỏ hàm cho phép chúng ta truy cập và thực thi các hàm thông qua biến con trỏ đó.
+
 
 
 # Bài 4: Memory layout
