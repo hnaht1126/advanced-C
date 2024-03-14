@@ -650,6 +650,17 @@ Heap: Nếu bạn liên tục cấp phát vùng nhớ mà không giải phóng t
 
 ```c
 int *A = (int *)malloc(18446744073709551615);
+
+Bài 7: Bitmask
+
+## Bitmask
+Quá trình sửa đổi và sử dụng các biểu diễn nhị phân của số hoặc bất kỳ dữ liệu nào
+
+### bitwise
+* OR (|) - đặt bit thành 1 nếu một trong hai bit tương ứng trong toán hạng là 1.
+* AND (&) - đặt một bit thành 1 nếu cả hai bit tương ứng trong toán hạng là 1.
+* XOR (^) - đặt bit thành 1 nếu các bit tương ứng trong toán hạng khác nhau.
+* NOT (~) - đặt 0 thành 1 và 1 thành 0.
 ```
 
 
