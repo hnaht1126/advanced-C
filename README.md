@@ -388,9 +388,112 @@ int main() {
     return 0;
 }
 ```
-## function pointer
+## [Function pointer](https://www.geeksforgeeks.org/function-pointer-in-c/?ref=lbp) 
 
 Con trỏ hàm (function pointer) là một biến có kiểu dữ liệu là con trỏ, nhưng thay vì chỉ trỏ đến một vùng nhớ chứa dữ liệu, nó trỏ đến một hàm cụ thể trong bộ nhớ. Con trỏ hàm cho phép chúng ta truy cập và thực thi các hàm thông qua biến con trỏ đó.
+
+Trong ngôn ngữ lập trình C, con trỏ hàm cho phép bạn truyền một hàm như là một đối số cho một hàm khác, lưu trữ địa chỉ của hàm trong một cấu trúc dữ liệu, hoặc thậm chí truyền hàm như một giá trị trả về từ một hàm khác.
+
+```c
+/*
+gán ptr tới các hàm add và subtract, chúng ta có thể gọi các hàm này thông qua ptr,
+cung cấp sự linh hoạt trong việc thay đổi hàm mà ptr trỏ tới mà không cần thay đổi mã nguồn.
+  */
+#include <stdio.h>
+
+// Định nghĩa hai hàm cần được trỏ tới
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+int main() {
+    // Khai báo một con trỏ hàm có kiểu trả về là int và nhận hai đối số kiểu int
+    int (*ptr)(int, int);
+
+    // Gán con trỏ hàm đến hàm add
+    ptr = add;
+    printf("Addition: %d\n", ptr(10, 5)); // Gọi hàm add thông qua con trỏ hàm
+
+    // Gán con trỏ hàm đến hàm subtract
+    ptr = subtract;
+    printf("Subtraction: %d\n", ptr(10, 5)); // Gọi hàm subtract thông qua con trỏ hàm
+
+    return 0;
+}
+
+```
+**Ứng dụng :** Con trỏ hàm thường được sử dụng trong các tình huống như việc truyền hàm làm đối số cho một hàm khác (callbacks), xử lý sự kiện, hoặc khi cần chọn lựa hàm để gọi dựa trên điều kiện trong thời gian chạy.
+
+```c
+#include <stdio.h>
+// Hàm mẫu 1
+void greetEnglish() {
+    printf("Hello!\n");
+}
+
+// Hàm mẫu 2
+void greetFrench() {
+    printf("Bonjour!\n");
+}
+
+int main() {
+    // Khai báo con trỏ hàm
+    void (*ptrToGreet)();
+
+    // Gán địa chỉ của hàm greetEnglish cho con trỏ hàm
+    ptrToGreet = greetEnglish;
+
+    // Gọi hàm thông qua con trỏ hàm
+    (*ptrToGreet)();  // In ra: Hello!
+
+    // Gán địa chỉ của hàm greetFrench cho con trỏ hàm
+    ptrToGreet = greetFrench;
+
+    // Gọi hàm thông qua con trỏ hàm
+    (*ptrToGreet)();  // In ra: Bonjour!
+
+    return 0;
+}
+```
+
+Con trỏ hàm trỏ tới những hàm input parameter (tham số) giốn nhau
+sd ctro hàm để làm input  parameter cho hàm khác.
+
+***tham số là biến trong khai báo hàm, đối số là giá trị cụ thể được truyền cho các biến này khi hàm được gọi.***
+
+## Pointer to Constant 
+
+"Con trỏ tới hằng số" trong C và C++ dùng để chỉ `một con trỏ` trỏ tới một `giá trị không đổi`. Điều này có nghĩa là bản thân `con trỏ có thể thay đổi` (tức là nó có thể trỏ đến các vị trí bộ nhớ khác nhau), nhưng `giá trị được lưu trữ tại vị trí bộ nhớ mà nó trỏ tới không thể được sửa đổi thông qua con trỏ đó`.
+
+(giá trị không đổi, con trỏ có thể trỏ tới chỗ khác )
+
+```c
+const int *ptr; // Pointer to a constant integer
+```
+Ứng dụng: bảo vệ dữ liệu không bị thay đổi
+
+## Constant Pointer:
+là một con trỏ `không thể` được sử dụng để sửa đổi giá trị(địa chỉ) mà nó trỏ tới, nhưng nó `có thể` được trỏ đến các vị trí khác. 
+
+(địa chỉ con trỏ trỏ tới ko đổi, có thể thay đổi giá trị ở vùng nhớ tại địa chỉ đó)
+
+```c
+int *const ptr = &x; // Constant pointer to an integer
+```
+
+Ứng dụng: Đảm bảo con trỏ, trỏ đến đúng địa chỉ (vd trỏ đến đúng hàm cần sd)
+
+## Pointer to Pointer
+
+Con trỏ đến con trỏ (Pointer to Pointer) là một kiểu dữ liệu trong ngôn ngữ lập trình cho phép bạn lưu trữ địa chỉ của một con trỏ. 
+
+Con trỏ tới con trỏ cung cấp một cách tiếp cận linh hoạt đến bộ nhớ, cho phép thay đổi giá trị của con trỏ thứ hai để thay đổi địa chỉ mà nó trỏ tới.
+
+Ứng dụng:  **Truyền con trỏ vào hàm**, **Sử dụng trong mảng 2 chiều**, **Sử dụng trong danh sách liên kết**.
 
 
 
