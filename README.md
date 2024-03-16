@@ -966,5 +966,53 @@ Quá trình sửa đổi và sử dụng các biểu diễn nhị phân của s�
  
 
 
+# Bài 8: Struct - Union
+
+## Struct
+
+`struct` là một cấu trúc dữ liệu được sử dụng để tổ chức các biến có liên quan lại với nhau trong một khối duy nhất. Một `struct` **cho phép bạn tự định nghĩa các kiểu dữ liệu phức tạp bằng cách kết hợp nhiều kiểu dữ liệu cơ bản lại với nhau.**
+
+```c
+typedef struct <tên_struct> {
+    // các thành phần (fields) của struct
+    <kiểu_dữ_liệu1> <tên_biến1>;
+    <kiểu_dữ_liệu2> <tên_biến2>;
+    //...
+}<bí danh>; // sd typedef để đặt tên cho Struct
+```
+
+Kích thước dữ liệu cơ sở tạo bởi `stuct` được xác định bằng kích thước kiểu dữ liệu lớn nhất được khởi tạo trong `struct` đó.
+
+![image](https://github.com/hnaht1126/advanced-C/assets/152061415/47d85127-ff5f-424e-8e2b-1dbc04e942ac)
+
+với struct trên mỗi lần quét dữ liệu sẽ tạo 4 byte dữ liệu.
+
+Quét kích thước cơ sở -> kiểm tra kích thước -> sắp xếp dữ liệu vào ô nhớ.
+
+Việc sắp xếp dữ liệu hợp lý giúp tôi ưu bộ nhớ, làm giảm số lượng các ô nhớ trống.
+
+**Ứng dụng:** Tổ chức dữ liệu theo một cấu trúc nhất định để dễ dàng quản lý và thao tác với chúng.
+
+Ứng dụng của struct trong:
+json....... 
+list.....
+
+## Union
+
+`union` là một loại cấu trúc dữ liệu giống như `struct`, nhưng các thành phần của nó sử dụng cùng một vùng nhớ. Điều này có nghĩa là mỗi thành phần của `union chia sẻ cùng một địa chỉ bắt đầu`, do đó chỉ một thành phần của `union` có thể lưu trữ giá trị tại một thời điểm.
+
+```c
+
+union <tên_union> {
+    // các thành phần (fields) của union
+    <kiểu_dữ_liệu1> <tên_biến1>;
+    <kiểu_dữ_liệu2> <tên_biến2>;
+    //...
+};
+```
+**Ứng dụng:** Đọc dữ liệu cảm biến (mỗi lần đọc 1 cảm biến rồi in dữ liệu ra -> tiết kiệm bộ nhớ )
+
+## Ứng dụng kết hợp struct và union
+
 
 
