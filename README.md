@@ -1016,3 +1016,35 @@ union <tên_union> {
 
 
 
+
+
+# Bài 10: Linked List
+
+## Linked list 
+
+Danh sách liên kết là một `cấu trúc dữ liệu` bao gồm một `chuỗi các phần tử`, mỗi phần tử thường được gọi là một nút **(node)**. `Mỗi nút chứa hai phần: dữ liệu và tham chiếu (hoặc liên kết) đến nút tiếp theo trong chuỗi`. Nút cuối cùng trong danh sách trỏ đến null, biểu thị sự kết thúc của danh sách.
+
+* Danh sách liên kết đơn: mỗi nút chứa dữ liệu và tham chiếu đến nút tiếp theo trong chuỗi.
+
+* Danh sách liên kết đôi:  mỗi nút chứa tham chiếu đến nút tiếp theo và tham chiếu đến nút trước đó trong chuỗi. 
+
+* Danh sách liên kết vòng:  nút cuối cùng trỏ về nút đầu tiên.
+
+## Ưu nhược điểm 
+Ưu điểm: 
+
+* Kích thước động: Danh sách liên kết có thể dễ dàng tăng và giảm kích thước.
+
+* Chèn và xóa: Việc chèn và xóa nói chung diễn ra nhanh chóng và hiệu quả, đặc biệt đối với các danh sách liên kết đơn khi đã biết vị trí.
+
+* Không lãng phí dung lượng: Danh sách liên kết chỉ sử dụng nhiều bộ nhớ cần thiết cho các phần tử chứa trong đó.
+
+Nhược điểm:
+
+* Thời gian truy cập: Việc truy cập các phần tử trong danh sách liên kết chậm hơn so với mảng hoặc cấu trúc dữ liệu khác cho phép truy cập ngẫu nhiên.
+
+* Chi phí bộ nhớ: Mỗi nút trong danh sách liên kết yêu cầu bộ nhớ bổ sung để lưu trữ tham chiếu đến nút tiếp theo.
+
+* Truy cập tuần tự: Không giống như mảng, việc truy cập các phần tử trong danh sách liên kết yêu cầu duyệt từ đầu danh sách.
+
+
