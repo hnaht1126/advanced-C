@@ -721,7 +721,7 @@ num_elements: Số lượng phần tử để phân bổ bộ nhớ.
 element_size: Kích thước của mỗi phần tử tính bằng byte.
 
 *Tự tìm phân vùng đủ cho dữ liệu*
-
+                    
 ```c
 #include <stdlib.h>
 
@@ -1014,8 +1014,29 @@ union <tên_union> {
 
 ## Ứng dụng kết hợp struct và union
 
+# Bài 9: JSON
 
+## 1. Khái niệm JSON
 
+JSON được biểu diễn dưới dạng các cặp key-value (khóa-giá trị) và có thể nhóm thành các đối tượng (objects) và mảng (arrays), giúp tổ chức dữ liệu một cách cấu trúc và linh hoạt, để dễ đọc và viết cho con người.
+
+## 2. Các kiểu định dạng
+
+JSON (JavaScript Object Notation) hỗ trợ một số kiểu định dạng dữ liệu cơ bản, bao gồm:
+
+- Chuỗi (String): `chuỗi ký tự Unicode được bao quanh bởi dấu ngoặc kép`. Ví dụ: "Hello, World!", "123", "true".
+
+- Số (Number): JSON hỗ trợ cả `số nguyên và số thực`. Các số có thể được biểu diễn với hoặc không có dấu thập phân và/hoặc mũ. Ví dụ: 123, 3.14, -42, 1.5e10.
+
+- Boolean: Được biểu diễn bởi từ khóa `true` hoặc `false`.
+
+- Mảng (Array): Một danh sách các giá trị, được `bao quanh bởi dấu ngoặc vuông và các giá trị được phân tách bằng dấu phẩy`. Mỗi phần tử trong mảng `có thể là bất kỳ kiểu dữ liệu JSON nào`. Ví dụ: [1, 2, 3, "apple", true].
+
+- Đối tượng (Object): `Một tập hợp các cặp key-value`, được `bao quanh bởi dấu ngoặc nhọn`. `Mỗi cặp key-value được phân tách bằng dấu phẩy`. Key là một chuỗi và phải được bao quanh bởi dấu ngoặc kép, sau đó là dấu hai chấm, và sau đó là giá trị. Ví dụ: {"name": "John", "age": 30, "isStudent": true}.
+
+- Null: Được biểu diễn bởi từ khóa `null`, `đại diện cho một giá trị không tồn tại hoặc không xác định`.
+
+ Các kiểu dữ liệu này có thể được kết hợp với nhau để tạo ra cấu trúc dữ liệu phức tạp hơn trong JSON.
 
 
 # Bài 10: Linked List
