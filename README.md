@@ -63,7 +63,7 @@ main.o -o filename
 [Macro](https://www.geeksforgeeks.org/macros-and-its-types-in-c-cpp/?ref=header_search) là những thông tin được xử lý ở quá trình tiền xử lý ( Preprocessor).
 
 
-## #include : thêm nội dung của một file mã nguồn vào mã nguồn khác. 
+### #include : thêm nội dung của một file mã nguồn vào mã nguồn khác. 
 #include thường được sử dụng để chèn các tệp header (tệp đầu mục) vào mã nguồn hiện tại.
 
 Cho phép tái sử dụng mã nguồn, phân chia mã nguồn thành các tệp nhỏ hơn, và tạo ra các thư viện và module trong các dự án lớn.
@@ -76,7 +76,7 @@ int main() {
     return 0;
 }
 ```
-## #define : được sử dụng để tạo ra các hằng số, các macro, hoặc định nghĩa các hàm ngắn gọn
+### #define : được sử dụng để tạo ra các hằng số, các macro, hoặc định nghĩa các hàm ngắn gọn
 
 > Ví dụ về sử dụng #define để định nghĩa hằng số:
 ```c
@@ -119,7 +119,7 @@ SQUARE là một macro, và mỗi khi chương trình biên dịch gặp SQUARE(
 
 '#define' là một công cụ trong tiền xử lý của ngôn ngữ C và C++, cho phép định nghĩa các hằng số, macro, hoặc các hàm ngắn gọn giúp làm cho mã nguồn dễ đọc và dễ bảo trì hơn.
 
-## '#undef ' được sử dụng để hủy định nghĩa của một macro trước đó đã được định nghĩa bằng #define
+### '#undef ' được sử dụng để hủy định nghĩa của một macro trước đó đã được định nghĩa bằng #define
 
 ```c
 #define MAX_SIZE 100
@@ -131,7 +131,7 @@ SQUARE là một macro, và mỗi khi chương trình biên dịch gặp SQUARE(
 #undef thường được thực hiện khi cần thay đổi hoặc ghi đè lên các định nghĩa macro trong mã nguồn.
 
 
-## #if, #elif, và #else
+### #if, #elif, và #else
  - #if: Directive này cho phép kiểm tra một điều kiện và biên dịch một phần của mã nguồn nếu điều kiện đó là đúng.
 
 - #elif: Là viết tắt của "else if" và được sử dụng để kiểm tra một điều kiện mới nếu điều kiện trước đó không đúng.
@@ -162,7 +162,7 @@ int main() {
 ```
 
 
-## #ifdef và #ifndef
+### #ifdef và #ifndef
 Là các directive (chỉ thị tiền xử lý) được sử dụng để kiểm tra xem một macro đã được định nghĩa trước đó chưa.
 
 - #ifdef kiểm tra xem một macro đã được định nghĩa hay không. Nếu macro đã được định nghĩa, khối mã tiếp theo được thực thi.
