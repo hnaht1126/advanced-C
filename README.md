@@ -8,7 +8,7 @@ advanced-C
 
 ![image](https://github.com/hnaht1126/advanced-C/assets/152061415/1e02ab50-ef02-476c-89ea-842803466a14)
 
-## Quá trình biên dịch gồm 4 giai đoạn
+### Quá trình biên dịch gồm 4 giai đoạn
 
 - Giai đoạn tiền xử lý (Pre-processor):
 
