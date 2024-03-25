@@ -1067,5 +1067,43 @@ Nhược điểm:
 * Chi phí bộ nhớ: Mỗi nút trong danh sách liên kết yêu cầu bộ nhớ bổ sung để lưu trữ tham chiếu đến nút tiếp theo.
 
 * Truy cập tuần tự: Không giống như mảng, việc truy cập các phần tử trong danh sách liên kết yêu cầu duyệt từ đầu danh sách.
+  
 
+# Bài 11: Stack - Queue
+
+## 1. Stack
+
+Stack (ngăn xếp) là một cấu trúc dữ liệu tuân theo nguyên tắc "Last In, First Out" (LIFO), nghĩa là phần tử cuối cùng được thêm vào stack sẽ là phần tử đầu tiên được lấy ra. 
+
+**Các hoạt động liên quan đến ngăn xếp bao gồm:**
+
+1. Push: Thêm một phần tử vào đầu ngăn xếp.
+
+2. Pop: Loại bỏ phần tử trên cùng khỏi ngăn xếp.
+
+3. Peek hoặc Top: Lấy giá trị phần tử ở trên cùng.
+
+4. IsEmpty: Kiểm tra xem ngăn xếp có trống không.
+
+5. Size: Xác định số lượng phần tử trong ngăn xếp.
+
+Ngăn xếp được sử dụng rộng rãi trong các `thuật toán và ứng dụng như quản lý lệnh gọi hàm (ngăn xếp cuộc gọi trong ngôn ngữ lập trình), đánh giá biểu thức và thuật toán quay lui`.
+
+## 2. Queue
+
+Queue là một cấu trúc dữ liệu tuân theo nguyên tắc "First In, First Out" (FIFO), nghĩa là phần tử đầu tiên được thêm vào hàng đợi sẽ là phần tử đầu tiên được lấy ra. 
+
+**Các hoạt động liên quan đến hàng đợi bao gồm:**
+
+1. Enqueue: Thêm một phần tử vào cuối hàng đợi.
+
+2. Dequeue: Loại bỏ một phần tử ở đầu hàng đợi.
+
+3. Peek or Front: Giá trị phần tử đầu hàng đợi.
+
+4. IsEmpty: Kiểm tra xem hàng đợi có trống không.
+
+5. Size: Xác định số lượng phần tử trong hàng đợi.
+
+Hàng đợi được sử dụng trong các tình huống trong đó các tác vụ được xử lý theo thứ tự nhận được, chẳng hạn như lập lịch công việc, thuật toán tìm kiếm theo chiều rộng và hàng đợi máy in.
 
