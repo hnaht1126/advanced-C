@@ -2,13 +2,13 @@ advanced-C
 
 # Bài 1: Compiler - Macro
 
-## Compiler
+## 1. Compiler
  [Compiler](https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/?ref=lbp): Chuyển đổi ngôn ngữ bậc cao sang ngôn ngữ máy
  
 
 ![image](https://github.com/hnaht1126/advanced-C/assets/152061415/1e02ab50-ef02-476c-89ea-842803466a14)
 
-### Quá trình biên dịch gồm 4 giai đoạn
+## Quá trình biên dịch gồm 4 giai đoạn
 
 - Giai đoạn tiền xử lý (Pre-processor):
 
@@ -59,11 +59,11 @@ main.o -o filename
 - flie `.exe` thường là các tệp chứa mã máy thực thi cho các ứng dụng chạy trên hệ điều hành Windows
 
 
-## Macro 
+## 2. Macro 
 [Macro](https://www.geeksforgeeks.org/macros-and-its-types-in-c-cpp/?ref=header_search) là những thông tin được xử lý ở quá trình tiền xử lý ( Preprocessor).
 
 
-### #include : thêm nội dung của một file mã nguồn vào mã nguồn khác. 
+## #include : thêm nội dung của một file mã nguồn vào mã nguồn khác. 
 #include thường được sử dụng để chèn các tệp header (tệp đầu mục) vào mã nguồn hiện tại.
 
 Cho phép tái sử dụng mã nguồn, phân chia mã nguồn thành các tệp nhỏ hơn, và tạo ra các thư viện và module trong các dự án lớn.
@@ -76,7 +76,7 @@ int main() {
     return 0;
 }
 ```
-### #define : được sử dụng để tạo ra các hằng số, các macro, hoặc định nghĩa các hàm ngắn gọn
+## #define : được sử dụng để tạo ra các hằng số, các macro, hoặc định nghĩa các hàm ngắn gọn
 
 > Ví dụ về sử dụng #define để định nghĩa hằng số:
 ```c
@@ -119,7 +119,7 @@ SQUARE là một macro, và mỗi khi chương trình biên dịch gặp SQUARE(
 
 '#define' là một công cụ trong tiền xử lý của ngôn ngữ C và C++, cho phép định nghĩa các hằng số, macro, hoặc các hàm ngắn gọn giúp làm cho mã nguồn dễ đọc và dễ bảo trì hơn.
 
-### '#undef ' được sử dụng để hủy định nghĩa của một macro trước đó đã được định nghĩa bằng #define
+## '#undef ' được sử dụng để hủy định nghĩa của một macro trước đó đã được định nghĩa bằng #define
 
 ```c
 #define MAX_SIZE 100
@@ -131,7 +131,7 @@ SQUARE là một macro, và mỗi khi chương trình biên dịch gặp SQUARE(
 #undef thường được thực hiện khi cần thay đổi hoặc ghi đè lên các định nghĩa macro trong mã nguồn.
 
 
-### #if, #elif, và #else
+## #if, #elif, và #else
  - #if: Directive này cho phép kiểm tra một điều kiện và biên dịch một phần của mã nguồn nếu điều kiện đó là đúng.
 
 - #elif: Là viết tắt của "else if" và được sử dụng để kiểm tra một điều kiện mới nếu điều kiện trước đó không đúng.
@@ -154,15 +154,13 @@ int main() {
 
     return 0;
 }
-/*
+
+```
 - Nếu DEBUG_MODE được định nghĩa là 1, câu lệnh printf("Debug mode is enabled.\n"); sẽ được biên dịch.
 - Nếu DEBUG_MODE là 0, câu lệnh printf("Debug mode is disabled.\n"); sẽ được biên dịch.
 - Nếu không có giá trị nào của DEBUG_MODE được định nghĩa, câu lệnh printf("Unknown debug mode.\n"); sẽ được biên dịch.
-*/
-```
 
-
-### #ifdef và #ifndef
+## #ifdef và #ifndef
 Là các directive (chỉ thị tiền xử lý) được sử dụng để kiểm tra xem một macro đã được định nghĩa trước đó chưa.
 
 - #ifdef kiểm tra xem một macro đã được định nghĩa hay không. Nếu macro đã được định nghĩa, khối mã tiếp theo được thực thi.
@@ -283,7 +281,7 @@ Trả lời:
 
 # Bài 2: STDARG - ASSERT
 
-## stdarg
+## 1. stdarg
 
 Cung cấp các phương thức để làm việc với các hàm có số lượng input parameter không cố định.
 
@@ -323,7 +321,7 @@ int main() {
 ```
 Trong ví dụ này, là một hàm chấp nhận một số lượng đối số nguyên thay đổi. Nó sử dụng macro để lặp lại các đối số được cung cấp và in chúng ra.print_ints()stdarg
 
-## assert
+## 2. assert
 
 `assert` là một macro trong ngôn ngữ lập trình C và C ++ được sử dụng cho mục đích gỡ lỗi. Nó đánh giá một biểu thức và nếu biểu thức đánh giá là false (không), nó sẽ gây ra lỗi xác nhận, thường *`tạm dừng thực thi chương trình và in thông báo lỗi.`*
 
@@ -347,16 +345,17 @@ Assertion failed: (x == 10), file example.c, line 6.
 ```
 `assert` thường bị vô hiệu hóa trong các bản dựng sản xuất vì chúng có thể ảnh hưởng đáng kể đến hiệu suất 
 
+
 # Bài 3: Pointer
 
-## Pointer
+## 1. Pointer
 Pointer là một biến chứa địa chỉ bộ nhớ của một biến khác
 
 ![image](https://github.com/hnaht1126/advanced-C/assets/152061415/b01a0c93-6b2f-42a9-b52c-b22cf9c3f130)
 
 Kích thước của con trỏ phụ thuộc vào kiến trúc máy tính và trình biên dịch
 
-## Void Pointer
+## 2. Void Pointer
 Con trỏ void trong C và C++ là  con trỏ có thể trỏ đến các đối tượng thuộc bất kỳ kiểu dữ liệu nào (không cần biết kiểu dữ liệu con trỏ trỏ tới). Con trỏ void được khai báo bằng kiểu `void *ptr.`
 ```c
 // vd sử dụng con trỏ void
@@ -388,7 +387,7 @@ int main() {
     return 0;
 }
 ```
-## [Function pointer](https://www.geeksforgeeks.org/function-pointer-in-c/?ref=lbp) 
+## 3. [Function pointer](https://www.geeksforgeeks.org/function-pointer-in-c/?ref=lbp) 
 
 Con trỏ hàm (function pointer) là một biến có kiểu dữ liệu là con trỏ, nhưng thay vì chỉ trỏ đến một vùng nhớ chứa dữ liệu, nó trỏ đến một hàm cụ thể trong bộ nhớ. Con trỏ hàm cho phép chúng ta truy cập và thực thi các hàm thông qua biến con trỏ đó.
 
@@ -396,8 +395,7 @@ Trong ngôn ngữ lập trình C, con trỏ hàm cho phép bạn truyền một 
 
 ```c
 /*
-gán ptr tới các hàm add và subtract, chúng ta có thể gọi các hàm này thông qua ptr,
-cung cấp sự linh hoạt trong việc thay đổi hàm mà ptr trỏ tới mà không cần thay đổi mã nguồn.
+gán ptr tới các hàm add và subtract, chúng ta có thể gọi các hàm này thông qua ptr, cung cấp sự linh hoạt trong việc thay đổi hàm mà ptr trỏ tới mà không cần thay đổi mã nguồn.
   */
 #include <stdio.h>
 
@@ -465,7 +463,7 @@ sd ctro hàm để làm input  parameter cho hàm khác.
 
 ***tham số là biến trong khai báo hàm, đối số là giá trị cụ thể được truyền cho các biến này khi hàm được gọi.***
 
-## Pointer to Constant 
+## 4. Pointer to Constant 
 
 "Con trỏ tới hằng số" trong C và C++ dùng để chỉ `một con trỏ` trỏ tới một `giá trị không đổi`. Điều này có nghĩa là bản thân `con trỏ có thể thay đổi` (tức là nó có thể trỏ đến các vị trí bộ nhớ khác nhau), nhưng `giá trị được lưu trữ tại vị trí bộ nhớ mà nó trỏ tới không thể được sửa đổi thông qua con trỏ đó`.
 
@@ -476,8 +474,8 @@ const int *ptr; // Pointer to a constant integer
 ```
 Ứng dụng: bảo vệ dữ liệu không bị thay đổi
 
-## Constant Pointer:
-là một con trỏ `không thể` được sử dụng để sửa đổi giá trị(địa chỉ) mà nó trỏ tới, nhưng nó `có thể` được trỏ đến các vị trí khác. 
+## 5. Constant Pointer:
+là một con trỏ `không thể` được sử dụng để sửa đổi giá trị(địa chỉ) mà nó trỏ tới, nhưng nó `có thể` thay đổi giá trị ở vùng nhớ tại địa chỉ đó . 
 
 (địa chỉ con trỏ trỏ tới ko đổi, có thể thay đổi giá trị ở vùng nhớ tại địa chỉ đó)
 
@@ -487,7 +485,7 @@ int *const ptr = &x; // Constant pointer to an integer
 
 Ứng dụng: Đảm bảo con trỏ, trỏ đến đúng địa chỉ (vd trỏ đến đúng hàm cần sd)
 
-## Pointer to Pointer
+## 6. Pointer to Pointer
 
 Con trỏ đến con trỏ (Pointer to Pointer) là một kiểu dữ liệu trong ngôn ngữ lập trình cho phép bạn lưu trữ địa chỉ của một con trỏ. 
 
@@ -496,15 +494,14 @@ Con trỏ tới con trỏ cung cấp một cách tiếp cận linh hoạt đến
 Ứng dụng:  **Truyền con trỏ vào hàm**, **Sử dụng trong mảng 2 chiều**, **Sử dụng trong danh sách liên kết**.
 
 
-
 # Bài 4: Memory layout
 
 
-## Memory layout
+## 1. Memory layout
 
 Chương trình main.exe ( trên window), main.hex ( nạp vào vi điều khiển) được lưu ở bộ nhớ SSD hoặc FLASH. Khi nhấn run chương trình trên window ( cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
 
-## Memory layout
+
 
 Việc tổ chức dữ liệu trong bộ nhớ của hệ thống máy tính. Nó xác định cách dữ liệu được lưu trữ, truy cập và quản lý trong hệ thống phân cấp bộ nhớ của hệ thống.
 
@@ -514,7 +511,7 @@ Bố cục bộ nhớ thường bao gồm việc sắp xếp các phân đoạn 
 
 
 
-## Code Segment (Text Segment)
+## 2. Code Segment (Text Segment)
 
 Chứa mã thực thi của một chương trình.
 
@@ -548,7 +545,8 @@ int main() {
 
 ```
 
-## Data Segment
+
+## 3. Data Segment
 
 Phân đoạn này chứa các `biến toàn cục` và `biến static` của chương trình. 
 
@@ -639,7 +637,7 @@ int main() {
 }
 ```
 
-## Stack
+## 4. Stack
 được sử dụng để Cấp phát bộ nhớ động và quản lý lệnh gọi hàm. 
 
  lưu trữ các biến cục bộ, tham số hàm, địa chỉ trả về và thông tin liên quan đến lệnh gọi hàm khác. 
@@ -689,7 +687,7 @@ int main() {
 }
  ```
 
- ## Heap
+## 5. Heap
 
 Heap là vùng bộ nhớ được sử dụng để cấp phát bộ nhớ động trong quá trình thực thi của chương trình.
 
@@ -721,7 +719,7 @@ num_elements: Số lượng phần tử để phân bổ bộ nhớ.
 element_size: Kích thước của mỗi phần tử tính bằng byte.
 
 *Tự tìm phân vùng đủ cho dữ liệu*
-                    
+
 ```c
 #include <stdlib.h>
 
@@ -777,7 +775,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
- ## Stack và Heap
+## 6. Stack và Heap
 Bộ nhớ Stack được dùng để lưu trữ các biến cục bộ trong hàm, tham số truyền vào... Truy cập vào bộ nhớ này rất nhanh và được thực thi khi chương trình được biên dịch.
 
 Bộ nhớ Heap được dùng để lưu trữ vùng nhớ cho những biến con trỏ được cấp phát động bởi các hàm malloc - calloc - realloc (trong C).
@@ -786,7 +784,7 @@ Bộ nhớ Heap được dùng để lưu trữ vùng nhớ cho những biến c
 
 `Heap`: Vùng nhớ Heap được quản lý bởi lập trình viên (trong C hoặc C++), dữ liệu trong Heap sẽ không bị hủy khi hàm thực hiện xong, điều đó có nghĩa bạn phải tự tay giải phóng vùng nhớ bằng câu lệnh free (trong C), và delete hoặc delete [] (trong C++), nếu không sẽ xảy ra hiện tượng rò rỉ bộ nhớ. 
 
->## Lỗi tràn bộ nhớ
+>### Lỗi tràn bộ nhớ
 **Stack:** bởi vì bộ nhớ Stack cố định nên nếu chương trình sử dụng quá nhiều bộ nhớ **vượt quá khả năng lưu trữ của Stack** chắc chắn sẽ xảy ra tình trạng tràn bộ nhớ Stack (Stack overflow), các trường hợp xảy ra như bạn `khởi tạo quá nhiều biến cục bộ, hàm đệ quy vô hạn,...`
 ```c
 
@@ -801,13 +799,17 @@ int foo(int x)
 ```c
 int *A = (int *)malloc(18446744073709551615);
 ```
+
 # Bài 5: Extern - Static - Volatile - Register
 
-## Extern 
-- tự tìm biến đã được khai báo
+## 1. Extern 
+- tự tìm `biến` đã được khai báo
 
 Khi sử dụng `Extern` khai báo biến, trình biên dịch hiểu rằng biến đã được khai báo ở một nơi khác và trình biên dịch sẽ tìm kiếm biến này ở các file khác trong quá trình liên kết.
 
+    #include <abc>: dán nội dung file abc vào mã 
+
+## 2. Static
 ## Static local variables 
 - giữ giá trị biến ở những lần gọi tiếp
 
@@ -827,16 +829,17 @@ int main() {
     exampleFunction(); // In ra "This function has been called 3 times."
     return 0;
 }
-
 ```
  biến count được khai báo là một biến cục bộ tĩnh trong hàm exampleFunction(). Mỗi lần hàm được gọi, biến count tăng lên một và giá trị của nó được giữ qua các lần gọi tiếp theo của hàm.
+
+ > tăng sau mỗi lần gọi biến
 
  ## Static global variables 
  - chỉ được sử dụng trong cùng một file mà nó được khai báo.
 
  **Ứng dụng:** dùng để thiết kế các file thư viện.
 
- Static global variables hay được gọi là "biến toàn cục tĩnh", là biến mà chỉ có phạm vi trong file mà nó được khai báo. Tức là, biến này **không thể truy cập từ các file khác thông qua việc sử dụng từ khóa extern**. Biến toàn cục tĩnh chỉ được sử dụng trong cùng một file mà nó được khai báo.
+ Static global variables hay được gọi là "biến toàn cục tĩnh", là `biến mà chỉ có phạm vi trong file mà nó được khai báo`. Tức là, biến này **không thể truy cập từ các file khác thông qua việc sử dụng từ khóa extern**. Biến toàn cục tĩnh chỉ được sử dụng trong cùng một file mà nó được khai báo.
 ```c
 // File: test.c
 #include <stdio.h>
@@ -858,14 +861,14 @@ int main() {
     return 0;
 }
 ```
-biến globalVar không thể truy cập từ các file khác thông qua extern.
+> biến globalVar không thể truy cập từ các file khác thông qua extern.
 
 ## Static trong class 
-Trong một lớp, **biến tĩnh (static member)** là một biến mà nó thuộc về lớp chứ không thuộc về mỗi đối tượng của lớp đó.
+Trong một lớp, **biến tĩnh (static member)** là một biến mà nó `thuộc về lớp chứ không thuộc về mỗi đối tượng của lớp đó`.
 
 Mọi đối tượng của lớp đều chia sẻ một bản sao duy nhất của biến tĩnh. Các biến tĩnh được ***cấp phát bộ nhớ khi chương trình bắt đầu chạy và tồn tại cho đến khi chương trình kết thúc.***
 
-Tương tự, **phương thức tĩnh (static method)** là một phương thức mà nó thuộc về lớp chứ không phải thuộc về các đối tượng của lớp đó. Phương thức tĩnh có thể được gọi mà không cần tạo ra một đối tượng của lớp đó.
+Tương tự, **phương thức tĩnh (static method)** là `một phương thức mà nó thuộc về lớp chứ không phải thuộc về các đối tượng của lớp đó`. Phương thức tĩnh có thể được gọi mà không cần tạo ra một đối tượng của lớp đó.
 
 ```c
 #include <iostream>
@@ -899,7 +902,7 @@ int main() {
 ```
 `staticVariable `là biến tĩnh và `staticMethod` là phương thức tĩnh của lớp `MyClass`. Cả hai đều thuộc về lớp ` MyClass `chứ không phải thuộc về mỗi đối tượng của lớp.
 
-## Volatile
+## 3. Volatile
  - Sử dụng khi biến có sự thay đổi giá trị -> đọc 1 lần khi compiler.
 
 được sử dụng để đánh dấu một biến như là "volatile". ***Giá trị của biến có thể thay đổi bất kỳ lúc nào bởi các yếu tố mà không được kiểm soát bởi chương trình***, chẳng hạn như phần cứng hoặc các luồng khác.
@@ -928,7 +931,7 @@ int main() {
 ```
 việc sử dụng volatile đảm bảo rằng trình biên dịch sẽ luôn đọc lại giá trị mới nhất của biến sensorValue mỗi khi nó được truy cập.
 
-## Register
+## 4. Register
 
 Trong ngôn ngữ lập trình C, từ khóa `register` được sử dụng để yêu cầu trình biên dịch cấp phát một biến cục bộ cho một thanh ghi máy tính. Giúp cải thiện hiệu suất truy cập vào biến đó bởi vì việc sử dụng thanh ghi có thể nhanh hơn so với việc truy cập bộ nhớ.
 
@@ -948,11 +951,48 @@ int main() {
     printf("x = %d\n", x);
     return 0;
 }
+
 ```
+# Bài 6: Goto - setjmp.h
+
+## 1. Goto 
+cho phép chương trình nhảy đến một nhãn (label) đã được đặt trước đó trong cùng một hàm (có thể làm mã khó đọc và khó bảo trì)
+
+```c
+/*chương trình sẽ nhảy tới nhãn end và in ra "The end." mà không cần thực thi các dòng code ở giữa*/
+
+#include <stdio.h>
+
+int main() {
+    printf("Start.\n");
+    goto end;
+
+    printf("This will be skipped.\n");
+
+    end: // lable
+    printf("The end.\n");
+
+    return 0;
+}
+
+```
+## matrix led 
+ điều khiển mảng led (and giá trị hàng và cột )
+ ![image](https://github.com/hnaht1126/advanced-C/assets/152061415/a9558990-ad37-4bf2-8311-1b19dbd75980)
+
+## 2. setjmp.h
+setjmp.h là một thư viện trong ngôn ngữ lập trình C. Thư viện này chứa hai hàm chính là `setjmp` và `longjmp`.
+
+xử lý các tình huống đặc biệt như xử lý ngoại lệ (exception handling)
+
+ngoại lệ (exception) là một sự kiện không mong muốn xảy ra trong quá trình thực thi chương trình, làm ảnh hưởng đến luồng bình thường của chương trình. 
+ 1. **setjum:** sử dụng hàm để đặt một điểm trong chương trình. Nó ***lưu trữ trạng thái hiện tại của cá biến và các thông số của hàm*** gọi nó vào kiểu dữ liệu là `jmp_buf`.  Sau khi gọi setjmp, chương trình có thể tiếp tục thực hiện và thể quay lại điểm đã đánh dấu bằng cách sử dụng `longjmp`.
+
+ 2. **longjmp:** Hàm này được sử dụng để quay lại điểm đã đánh dấu trước đó bởi setjmp. Nó khôi phục trạng thái của các biến và thông số của hàm gọi đến trạng thái đã lưu trữ trong jmp_buf, cho phép chương trình nhảy đến điểm đó mà không cần hoàn thành các lệnh ở giữa.
 
 # Bài 7: Bitmask
 
-## Bitmask
+## 1. Bitmask
 Quá trình sửa đổi và sử dụng các biểu diễn nhị phân của số hoặc dữ liệu 
 
 ### bitwise
@@ -966,9 +1006,10 @@ Quá trình sửa đổi và sử dụng các biểu diễn nhị phân của s�
  
 
 
+
 # Bài 8: Struct - Union
 
-## Struct
+## 1. Struct
 
 `struct` là một cấu trúc dữ liệu được sử dụng để tổ chức các biến có liên quan lại với nhau trong một khối duy nhất. Một `struct` **cho phép bạn tự định nghĩa các kiểu dữ liệu phức tạp bằng cách kết hợp nhiều kiểu dữ liệu cơ bản lại với nhau.**
 
@@ -997,7 +1038,7 @@ Việc sắp xếp dữ liệu hợp lý giúp tôi ưu bộ nhớ, làm giảm 
 json....... 
 list.....
 
-## Union
+## 3. Union
 
 `union` là một loại cấu trúc dữ liệu giống như `struct`, nhưng các thành phần của nó sử dụng cùng một vùng nhớ. Điều này có nghĩa là mỗi thành phần của `union chia sẻ cùng một địa chỉ bắt đầu`, do đó chỉ một thành phần của `union` có thể lưu trữ giá trị tại một thời điểm.
 
@@ -1039,9 +1080,14 @@ JSON (JavaScript Object Notation) hỗ trợ một số kiểu định dạng d�
  Các kiểu dữ liệu này có thể được kết hợp với nhau để tạo ra cấu trúc dữ liệu phức tạp hơn trong JSON.
 
 
+
+
+
+
+
 # Bài 10: Linked List
 
-## Linked list 
+## 1. Linked list 
 
 Danh sách liên kết là một `cấu trúc dữ liệu` bao gồm một `chuỗi các phần tử`, mỗi phần tử thường được gọi là một nút **(node)**. `Mỗi nút chứa hai phần: dữ liệu và tham chiếu (hoặc liên kết) đến nút tiếp theo trong chuỗi`. Nút cuối cùng trong danh sách trỏ đến null, biểu thị sự kết thúc của danh sách.
 
@@ -1067,7 +1113,6 @@ Nhược điểm:
 * Chi phí bộ nhớ: Mỗi nút trong danh sách liên kết yêu cầu bộ nhớ bổ sung để lưu trữ tham chiếu đến nút tiếp theo.
 
 * Truy cập tuần tự: Không giống như mảng, việc truy cập các phần tử trong danh sách liên kết yêu cầu duyệt từ đầu danh sách.
-  
 
 # Bài 11: Stack - Queue
 
@@ -1137,3 +1182,6 @@ Bob, 28, Paris
 ```
 
 Trong ví dụ này, mỗi hàng đại diện cho một bản ghi, trong đó trường dữ liệu được phân tách bằng dấu phẩy. Điều này cho phép dữ liệu được dễ dàng đọc và xử lý bởi các chương trình máy tính.
+
+
+
