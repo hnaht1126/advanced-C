@@ -1107,3 +1107,33 @@ Queue là một cấu trúc dữ liệu tuân theo nguyên tắc "First In, Firs
 
 Hàng đợi được sử dụng trong các tình huống trong đó các tác vụ được xử lý theo thứ tự nhận được, chẳng hạn như lập lịch công việc, thuật toán tìm kiếm theo chiều rộng và hàng đợi máy in.
 
+# Bài 12: Binary search - File operations - Code standards
+
+## 1. Binary search
+
+Binary search là một thuật toán tìm kiếm hiệu quả được sử dụng để tìm kiếm một phần tử trong một mảng đã được sắp xếp theo thứ tự tăng dần (hoặc giảm dần). 
+### Hoạt động của Binary search
+
+Thuật toán này hoạt động bằng cách chia mảng thành các phần nhỏ hơn và so sánh phần tử cần tìm với phần tử ở giữa của mảng. Nếu phần tử cần tìm bằng với phần tử ở giữa, thuật toán kết thúc.Nếu phần tử cần tìm lớn hơn phần tử ở giữa, thuật toán tiếp tục tìm kiếm ở nửa phải của mảng, ngược lại, nếu nhỏ hơn, tiếp tục tìm kiếm ở nửa trái của mảng. Thuật toán lặp lại quá trình này cho đến khi tìm thấy phần tử hoặc mảng đã được thăm hết mà không tìm thấy phần tử.
+
+Thuật toán binary search hoạt động nhanh chóng trên các mảng đã được sắp xếp và có độ phức tạp thời gian là O(log n), trong đó n là kích thước của mảng.
+
+## 2. File operations
+
+File operations là các hoạt động thao tác với tập tin trên hệ thống máy tính. Các hoạt động này bao gồm đọc từ tập tin, ghi vào tập tin, xóa tập tin, di chuyển hoặc đổi tên tập tin, và kiểm tra sự tồn tại của tập tin.
+
+Các hoạt động tập tin có thể liên quan đến việc nhập xuất dữ liệu, lưu trữ cấu trúc dữ liệu, cài đặt các cơ chế lưu trữ dữ liệu như cơ sở dữ liệu, và nhiều ứng dụng khác. Điều này rất quan trọng trong việc xử lý thông tin trong môi trường máy tính.
+
+### File CSV (Comma-Separated Values)
+
+File CSV (Comma-Separated Values) là một loại định dạng tập tin dữ liệu được sử dụng để lưu trữ và truyền tải dữ liệu dưới dạng văn bản, trong đó mỗi dòng của tập tin biểu diễn một bản ghi dữ liệu và các trường dữ liệu trong mỗi bản ghi được phân tách bằng dấu phẩy (,).
+
+Ví dụ về một tập tin CSV: 
+``` 
+Name, Age, City
+John, 25, New York
+Alice, 30, London
+Bob, 28, Paris
+```
+
+Trong ví dụ này, mỗi hàng đại diện cho một bản ghi, trong đó trường dữ liệu được phân tách bằng dấu phẩy. Điều này cho phép dữ liệu được dễ dàng đọc và xử lý bởi các chương trình máy tính.
