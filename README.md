@@ -1183,6 +1183,8 @@ Bob, 28, Paris
 
 Trong ví dụ này, mỗi hàng đại diện cho một bản ghi, trong đó trường dữ liệu được phân tách bằng dấu phẩy. Điều này cho phép dữ liệu được dễ dàng đọc và xử lý bởi các chương trình máy tính.
 
+
+
 C++
 
 # Bài 13 Class
@@ -1277,77 +1279,6 @@ Hoạt động của Thuật toán:
 - Dựa vào kết quả so sánh, loại bỏ một nửa mảng mà giá trị cần tìm không thể nằm trong đó,
 - Tiếp tục lặp lại cho đến khi tìm thấy giá trị cần tìm hoặc không còn phần tử nào để kiểm tra.
 
-
-# Bài 14 OPP
-## 1. Encapsulation
-Tính đóng gói ( Encapsulation) là ẩn đi các property “ mật” khỏi người dùng. Bằng cách khai báo các property ở quyền truy cập private ( tức là không thể truy cập trực tiếp tới các property này).  
-
-    thuộc tính (property) thường được hiểu là một đặc điểm hoặc thông tin thuộc về một đối tượng.
-    Ví dụ, nếu bạn đang làm việc với lớp "Person", các thuộc tính của mỗi đối tượng "Person" có thể bao gồm tên, tuổi, địa chỉ, giới tính, vv.
-
-Trong trường hợp ta muốn đọc hoặc ghi các property này, thì ta cung cấp các method ở quyền truy cập public.
-
-``` C++
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-class Person {
-private:
-    string name;
-    int age;
-
-public:
-    // Constructor
-    Person(string name, int age) {
-        this->name = name;
-        this->age = age;
-    }
-
-    // Getter cho name
-    string getName() {
-        return name;
-    }
-
-    // Setter cho name
-    void setName(string name) {
-        this->name = name;
-    }
-
-    // Getter cho age
-    int getAge() {
-        return age;
-    }
-
-    // Setter cho age
-    void setAge(int age) {
-        if (age >= 0) {
-            this->age = age;
-        } else {
-            cout << "Invalid age!" << endl;
-        }
-    }
-};
-
-int main() {
-    // Tạo một đối tượng Person
-    Person person("Alice", 30);
-
-    // Sử dụng các phương thức public để đọc và ghi dữ liệu
-    cout << "Name: " << person.getName() << endl;
-    cout << "Age: " << person.getAge() << endl;
-
-    person.setName("Bob");
-    person.setAge(-5); // Test invalid age
-
-    cout << "New name: " << person.getName() << endl;
-    cout << "New age: " << person.getAge() << endl;
-
-    return 0;
-}
-
-```
 
 # Bài 14 OPP
 ## 1. Encapsulation
