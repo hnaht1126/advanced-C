@@ -1183,6 +1183,8 @@ Bob, 28, Paris
 
 Trong ví dụ này, mỗi hàng đại diện cho một bản ghi, trong đó trường dữ liệu được phân tách bằng dấu phẩy. Điều này cho phép dữ liệu được dễ dàng đọc và xử lý bởi các chương trình máy tính.
 
+C++
+
 # Bài 13 Class
 ## 1. Declaring Object
 Trong C++, từ khóa "class" được sử dụng để định nghĩa một lớp, là một cấu trúc dữ liệu tự định nghĩa có thể chứa dữ liệu và các hàm thành viên liên quan. 
@@ -1346,4 +1348,275 @@ int main() {
 }
 
 ```
+
+# Bài 14 OPP
+## 1. Encapsulation
+Tính đóng gói ( Encapsulation) là ẩn đi các property “ mật” khỏi người dùng. Bằng cách khai báo các property ở quyền truy cập private ( tức là không thể truy cập trực tiếp tới các property này).  
+
+    thuộc tính (property) thường được hiểu là một đặc điểm hoặc thông tin thuộc về một đối tượng.
+    Ví dụ, nếu bạn đang làm việc với lớp "Person", các thuộc tính của mỗi đối tượng "Person" có thể bao gồm tên, tuổi, địa chỉ, giới tính, vv.
+
+Trong trường hợp ta muốn đọc hoặc ghi các property này, thì ta cung cấp các method ở quyền truy cập public.
+
+``` C++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Person {
+private:
+    string name;
+    int age;
+
+public:
+    // Constructor
+    Person(string name, int age) {
+        this->name = name;
+        this->age = age;
+    }
+
+    // Getter cho name
+    string getName() {
+        return name;
+    }
+
+    // Setter cho name
+    void setName(string name) {
+        this->name = name;
+    }
+
+    // Getter cho age
+    int getAge() {
+        return age;
+    }
+
+    // Setter cho age
+    void setAge(int age) {
+        if (age >= 0) {
+            this->age = age;
+        } else {
+            cout << "Invalid age!" << endl;
+        }
+    }
+};
+
+int main() {
+    // Tạo một đối tượng Person
+    Person person("Alice", 30);
+
+    // Sử dụng các phương thức public để đọc và ghi dữ liệu
+    cout << "Name: " << person.getName() << endl;
+    cout << "Age: " << person.getAge() << endl;
+
+    person.setName("Bob");
+    person.setAge(-5); // Test invalid age
+
+    cout << "New name: " << person.getName() << endl;
+    cout << "New age: " << person.getAge() << endl;
+
+    return 0;
+}
+
+```
+## 2. Inheritance
+Tính kế thừa ( Inheritance) là khả năng sử dụng lại các property và method của một class trong một class khác
+
+- class con (child class hoặc subclass), sử dụng (kế thừa) các thuộc tính và phương thức của class cha (parent class hoặc base class)
+
+
+Tất cả những property và method có quyền truy cập là public và protected ở class cha sẽ được class con kế thừa.
+
+Có 3 kiểu kế thừa là public, private và protected. Những property và method được kế thừa từ class cha sẽ nằm ở quyền truy cập của class con tương ứng với kiểu kế thừa.
+
+Kiểu kế thừa:
+
+    public: 
+        - các thành viên public của lớp cha trở thành các thành viên public của lớp con
+        - các thành viên protected của lớp cha trở thành các thành viên protected của lớp con
+
+    protected:
+        - Các thành viên public và protected của lớp cha trở thành các thành viên protected của lớp con.
+
+    private:
+        - Các thành viên public và protected của lớp cha trở thành các thành viên private của lớp con.
+```c++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Lớp cha
+class Animal {
+protected: // protected để cho lớp con truy cập
+    string name;
+
+public:
+    Animal(string name) : name(name) {}
+
+    void speak() {
+        cout << "Animal speaks" << endl;
+    }
+
+    void setName(string name) {
+        this->name = name;
+    }
+};
+
+// Lớp con kế thừa từ lớp cha
+class Dog : public Animal {
+public:
+    Dog(string name) : Animal(name) {}
+
+    // Override phương thức speak của lớp cha
+    void speak() {
+        cout << "Dog barks" << endl;
+    }
+};
+
+int main() {
+    Dog dog("Buddy");
+    dog.speak(); // Gọi phương thức speak của lớp con
+
+    dog.setName("Max"); // Gọi phương thức setName của lớp cha
+
+    return 0;
+}
+
+```
+
+## 3. Polymorphism
+
+Đa hình (Polymorphism) cho phép một object (đối tượng) có thể được xử lý dưới nhiều cách khác nhau. một method (phương thức) có thể được triển khai ở nhiều lớp khác nhau và thể hiện 1 hành động theo nhiều cách khác nhau. ( Function overriding - nạp chồng)
+
+Function overloading cung cấp nhiều định nghĩa cho 1 function bằng cách thay đổi số lượng input parameter, kiểu dữ liệu của input parameter.
+
+![image](https://github.com/hnaht1126/advanced-C/assets/152061415/efc6bbe4-aa63-4560-b53c-1aaeabb84c81)
+
+Có hai loại đa hình:
+
+    1.  Đa hình cơ bản (Compile-time Polymorphism): 
+    - xảy ra tại thời gian biên dịch.
+    - ví dụ cơ bản là overload hàm (hàm đa nạng) trong C++. 
+    - Trong overload hàm, có thể định nghĩa nhiều hàm có cùng tên nhưng có số lượng và kiểu dữ liệu tham số khác nhau.
+    Compiler sẽ quyết định hàm nào sẽ được gọi dựa trên kiểu và số lượng tham số được truyền vào.
+
+    2. Đa hình động (Runtime Polymorphism): 
+    - xảy ra tại thời điểm chương trình đang chạy.
+    - Trong C++, đa hình động thường được thực hiện thông qua việc sử dụng hàm ảo (virtual functions) và kế thừa.
+    - Khi một phương thức được khai báo là virtual trong lớp cha và được ghi đè trong lớp con,
+    việc quyết định phương thức nào sẽ được gọi được thực hiện tại thời điểm chạy dựa trên loại thực sự của đối tượng.
+    -Điều này cho phép chúng ta gọi cùng một phương thức trên các đối tượng của các lớp con khác nhau và có hành vi khác nhau.
+
+ví dụ về đa hình động trong C++ sử dụng hàm ảo (virtual functions):
+
+``` C++
+#include <iostream>
+using namespace std;
+
+// Lớp cơ sở (base class) lớp cha
+class Animal {
+public:
+    // Phương thức ảo
+    virtual void speak() {
+        cout << "Animal speaks" << endl;
+    }
+};
+
+// Lớp kế thừa (derived class) lớp con
+class Dog : public Animal {
+public:
+    // Ghi đè phương thức ảo của lớp cha
+    void speak() override {
+        cout << "Dog barks" << endl;
+    }
+};
+
+// Lớp kế thừa khác (derived class) lớp con
+class Cat : public Animal {
+public:
+    // Ghi đè phương thức ảo của lớp cha
+    void speak() override {
+        cout << "Cat meows" << endl;
+    }
+};
+
+int main() {
+    Animal* animals[2];
+    animals[0] = new Dog();
+    animals[1] = new Cat();
+
+    // Gọi phương thức speak tùy thuộc vào loại đối tượng thực sự
+    for (int i = 0; i < 2; i++) {
+        animals[i]->speak();
+    }
+
+    // Giải phóng bộ nhớ
+    for (int i = 0; i < 2; i++) {
+        delete animals[i];
+    }
+
+    return 0;
+}
+```
+
+lớp Animal có một phương thức ảo speak(). Cả hai lớp con Dog và Cat đều ghi đè phương thức speak() của lớp cha Animal. Khi chúng ta gọi phương thức speak() trên một con trỏ của lớp Animal, hành vi được quyết định tại thời điểm chạy dựa trên loại thực sự của đối tượng được tạo ra.
+
+## 4. Abstraction
+
+Tính trừu tượng (Abstraction) cho phép ẩn đi các chi tiết cụ thể của một đối tượng và chỉ hiển thị những gì cần thiết để sử dụng đối tượng đó.
+
+tạo ra một lớp cơ sở (base class) hoặc một giao diện (interface) mà không cần cung cấp các chi tiết cụ thể về cách nó hoạt động bên trong. 
+
+Lớp trừu tượng không thể được khởi tạo, nhưng nó có thể có các phương thức trừu tượng, các phương thức này chỉ được định nghĩa mà không cung cấp triển khai cụ thể. Các lớp con phải triển khai các phương thức trừu tượng này để có thể được khởi tạo.
+
+ví dụ về trừu tượng trong C++:
+``` C++
+#include <iostream>
+using namespace std;
+
+// Lớp trừu tượng
+class Shape {
+public:
+    // Phương thức trừu tượng tính diện tích
+    virtual float area() = 0;
+
+    // Phương thức trừu tượng tính chu vi
+    virtual float perimeter() = 0;
+};
+
+// Lớp con kế thừa từ lớp trừu tượng Shape
+class Rectangle : public Shape {
+private:
+    float length;
+    float width;
+
+public:
+    Rectangle(float length, float width) : length(length), width(width) {}
+
+    // Triển khai phương thức area cho hình chữ nhật
+    float area() override {
+        return length * width;
+    }
+
+    // Triển khai phương thức perimeter cho hình chữ nhật
+    float perimeter() override {
+        return 2 * (length + width);
+    }
+};
+
+int main() {
+    // Khởi tạo một đối tượng Rectangle
+    Rectangle rect(5, 3);
+
+    // In diện tích và chu vi của hình chữ nhật
+    cout << "Area of rectangle: " << rect.area() << endl;
+    cout << "Perimeter of rectangle: " << rect.perimeter() << endl;
+
+    return 0;
+}
+
+```
+Trong ví dụ này, lớp trừu tượng Shape có hai phương thức trừu tượng area() và perimeter(). Lớp con Rectangle triển khai các phương thức này để tính diện tích và chu vi của hình chữ nhật.
+
 
