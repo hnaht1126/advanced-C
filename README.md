@@ -1183,5 +1183,167 @@ Bob, 28, Paris
 
 Trong ví dụ này, mỗi hàng đại diện cho một bản ghi, trong đó trường dữ liệu được phân tách bằng dấu phẩy. Điều này cho phép dữ liệu được dễ dàng đọc và xử lý bởi các chương trình máy tính.
 
+# Bài 13 Class
+## 1. Declaring Object
+Trong C++, từ khóa "class" được sử dụng để định nghĩa một lớp, là một cấu trúc dữ liệu tự định nghĩa có thể chứa dữ liệu và các hàm thành viên liên quan. 
+    
+có thể khai báo một lớp bằng từ khóa "class", theo sau là tên lớp, các biến và hàm thành viên của nó.
 
+ ``` C++
+class ClassName {
+private:
+    // Các thành phần riêng tư (private) chỉ có thể truy cập bên trong lớp
+    // Dữ liệu thành viên, hàm thành viên, ...
+
+protected:
+    // Các thành phần bảo vệ (protected) tương tự như private, nhưng có thể truy cập từ lớp kế thừa
+
+public:
+        // Các thành phần công khai (public) được truy cập từ bên ngoài lớp
+    // Dữ liệu thành viên, hàm thành viên, ...
+    // Hàm thành viên và các phương thức khác có thể được định nghĩa tại đây
+    // ...
+
+}; 
+```
+
+## 2. Constructor
+
+Constructor trong C++ là một method sẽ được tự động gọi khi khởi tạo object. Constructor sẽ có tên trùng với tên của class.
+
+(method: là một hàm được liên kết với một lớp hoặc một đối tượng. Nó định nghĩa hành vi của các đối tượng của lớp. Các method được sử dụng để thực hiện các hành động hoặc thao tác nhất định trên các thành viên dữ liệu của lớp.)
+
+``` C++
+class HinhChuNhat {
+
+public:
+    double chieuDai;
+    double chieuRong;
+
+    HinhChuNhat(){
+        chieuDai = 10;
+        chieuRong = 9;
+    }
+
+    // Hàm tính diện tích
+    double tinhDienTich() {
+        return chieuDai * chieuRong;
+    }
+   
+};
+
+int main()
+{
+    HinhChuNhat hinh1; // Constructor HinhChuNhat
+
+
+    std::cout << "Chieu dai: " << hinh1.chieuDai << '\n';
+
+
+    return 0;
+}
+
+```
+
+## 3. Destructor
+
+Destructor trong C++ là một method sẽ được tự động gọi khi object được giải phóng. Destructor sẽ có tên trùng với tên của class và thêm ký tự ~ ở phía trước tên.
+
+```C++
+    ~HinhChuNhat(){
+    }
+```
+
+## 4. Static keyword
+
+ Khi một property(biến trong C) trong class được khai báo với từ khóa static, thì tất cả các object sẽ dùng chung địa chỉ của property này
+
+Khi một method trong class được khai báo với từ khóa static:
+   - Method này độc lập với bất kỳ đối tượng nào của lớp.
+   - Method này có thể được gọi ngay cả khi không có đối tượng nào của class tồn tại.
+   - Method này có thể được truy cập bằng cách sử dụng tên class thông qua toán tử :: .
+   - Method này có thể truy cập các static property và các static method bên trong hoặc bên ngoài class.
+   - Method có phạm vi bên trong class và không thể truy cập con trỏ đối tượng hiện tại.
+
+## 5. Binary search
+
+Binary search là một thuật toán tìm kiếm trong một mảng đã được sắp xếp. 
+
+Hoạt động của Thuật toán:
+
+-  chia mảng thành các phần bằng nhau và so sánh giá trị cần tìm với phần tử ở giữa của mảng.
+- Dựa vào kết quả so sánh, loại bỏ một nửa mảng mà giá trị cần tìm không thể nằm trong đó,
+- Tiếp tục lặp lại cho đến khi tìm thấy giá trị cần tìm hoặc không còn phần tử nào để kiểm tra.
+
+
+# Bài 14 OPP
+## 1. Encapsulation
+Tính đóng gói ( Encapsulation) là ẩn đi các property “ mật” khỏi người dùng. Bằng cách khai báo các property ở quyền truy cập private ( tức là không thể truy cập trực tiếp tới các property này).  
+
+    thuộc tính (property) thường được hiểu là một đặc điểm hoặc thông tin thuộc về một đối tượng.
+    Ví dụ, nếu bạn đang làm việc với lớp "Person", các thuộc tính của mỗi đối tượng "Person" có thể bao gồm tên, tuổi, địa chỉ, giới tính, vv.
+
+Trong trường hợp ta muốn đọc hoặc ghi các property này, thì ta cung cấp các method ở quyền truy cập public.
+
+``` C++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Person {
+private:
+    string name;
+    int age;
+
+public:
+    // Constructor
+    Person(string name, int age) {
+        this->name = name;
+        this->age = age;
+    }
+
+    // Getter cho name
+    string getName() {
+        return name;
+    }
+
+    // Setter cho name
+    void setName(string name) {
+        this->name = name;
+    }
+
+    // Getter cho age
+    int getAge() {
+        return age;
+    }
+
+    // Setter cho age
+    void setAge(int age) {
+        if (age >= 0) {
+            this->age = age;
+        } else {
+            cout << "Invalid age!" << endl;
+        }
+    }
+};
+
+int main() {
+    // Tạo một đối tượng Person
+    Person person("Alice", 30);
+
+    // Sử dụng các phương thức public để đọc và ghi dữ liệu
+    cout << "Name: " << person.getName() << endl;
+    cout << "Age: " << person.getAge() << endl;
+
+    person.setName("Bob");
+    person.setAge(-5); // Test invalid age
+
+    cout << "New name: " << person.getName() << endl;
+    cout << "New age: " << person.getAge() << endl;
+
+    return 0;
+}
+
+```
 
