@@ -1550,4 +1550,229 @@ int main() {
 ```
 Trong ví dụ này, lớp trừu tượng Shape có hai phương thức trừu tượng area() và perimeter(). Lớp con Rectangle triển khai các phương thức này để tính diện tích và chu vi của hình chữ nhật.
 
+# Bài 15: Standard template library
 
+Standard Template Library ( STL) là một thư viện trong ngôn ngữ lập trình C++ cung cấp một tập hợp các template classes và functions để thực hiện nhiều loại cấu trúc dữ liệu và các thuật toán phổ biến. STL đã trở thành một phần quan trọng của ngôn ngữ C++ và làm cho việc lập trình trở nên mạnh mẽ, linh hoạt và hiệu quả.
+
+Một số thành phần chính của STL:
+- Container
+- Iterator
+- Algorithms
+- Functor
+
+## 1. Containers
+
+Một container là một cấu trúc dữ liệu chứa nhiều phần tử theo một cách cụ thể. STL (Standard Template Library) cung cấp một số container tiêu biểu giúp lưu trữ và quản lý dữ liệu. 
+
+### 1.1 Vector
+
+ Vector là một mảng động có thể mở rộng tự động khi cần.
+
+- Các phần tử được lưu trữ dưới dạng một dãy liên tiếp trong bộ nhớ.
+- **Truy cập ngẫu nhiên:** truy cập ngãu nhiên vào các phần tử thông qua chỉ số.
+- **Hiệu suất chèn và xóa:** Chèn và xóa phần tử ở cuối vector có hiệu suất tốt. Tuy nhiên, chèn và xóa ở vị trí bất kỳ có thể đòi hỏi di chuyển một số phần tử.
+
+
+Một số method của vector:
+- at(): Truy cập vào phần tử của vector
+- size(): Trả về kích thước của vector
+- resize(): Thay đổi kích thước của vector
+- begin(): Địa chỉ của phần tử đầu tiên của vector
+- push_back(): Thêm phần tử vào vị trí cuối của vector
+- end(): Địa chỉ của phần tử cuối cùng của vector
+
+
+### 1.2 List
+
+Triển khai dưới dạng danh sách liên kết hai chiều
+
+- **Truy cập tuần tự:** Truy cập các phần tử của list chỉ có thể thực hiện tuần tự, không hỗ trợ truy cập ngẫu nhiên.
+- **Hiệu suất chèn và xóa:** Chèn và xóa ở bất kỳ vị trí nào trong danh sách có hiệu suất tốt hơn so với vector. Điều này đặc biệt đúng khi thêm/xóa ở giữa danh sách.
+
+Một số method của list:
+- push_back():
+- pop_back():
+- insert(): Chèn một node vào list
+- erase(): Xóa một node của list
+- size(): Trả về kích thước của list
+
+
+<table>
+<thead>
+<tr>
+<th>Sử dụng vector khi </th>
+<th>Sử dụng list khi </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cần truy cập ngẫu nhiên đến các phần tử.</td>
+<td> </td>
+</tr>
+
+<tr>
+<td>Thực hiện nhiều thao tác chèn/xóa ở cuối danh sách. </td>
+<td>Thực hiện nhiều thao tác chèn/xóa ở bất kỳ vị trí nào trong danh sách. </td>
+</tr>
+
+<tr>
+<td> </td>
+<td>Cần thực hiện nhiều thao tác chèn/xóa mà không làm ảnh hưởng đến các iterators hiện có.</td>
+</tr>
+
+<tr>
+<td>Dung lượng có thể biết trước hoặc thay đổi ít.</td>
+<td>Dung lượng không quan trọng hoặc thay đổi thường xuyên.</td>
+</tr>
+
+</table>
+
+
+
+
+Tùy thuộc vào yêu cầu cụ thể của vấn đề, bạn có thể chọn sử dụng std::vector hoặc std::list.
+
+
+### 1.3 Map
+
+cung cấp một cấu trúc dữ liệu ánh xạ key-value
+
+- Map lưu trữ các phần tử dưới dạng cặp key-value, trong đó mỗi key phải là duy nhất trong map.
+- Ta có thể thêm phần tử mới vào map bằng cách sử dụng operator [] hoặc hàm insert(). Để xóa phần tử, bạn có thể sử dụng hàm erase().
+- Ta có thể sử dụng iterator để duyệt qua các phần tử của map
+        
+### 1.4 Array
+
+Array là một container có kích thước cố định và có sẵn trong thư viện STL (Standard Template Library)
+
+- array có kích thước cố định được xác định tại thời điểm biên dịch và không thể thay đổi sau khi được khai báo.
+- array hỗ trợ truy cập ngẫu nhiên vào các phần tử thông qua toán tử []
+
+``` C++
+#include <iostream>
+#include <array>
+
+using namespace std;
+
+
+int main()
+{
+  
+    array <int, 5> arr = {2,3,1,7,6};
+    // array<int,0> arr;
+
+
+    if (arr.empty())
+    {
+        cout << "Array is empty" << endl;
+    }
+    else
+    {
+        cout << "Array it not empty" << endl;
+    }
+    
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        cout << "Value: " << arr.at(i) << endl;
+    }
+    
+
+    return 0;
+}
+
+```
+
+## 2. Iterator
+
+Iterator cung cấp một cách chung để duyệt qua các phần tử của một container mà không cần biết chi tiết về cách container được triển khai.
+
+- Iterator là một đối tượng cho phép truy cập tuần tự qua các phần tử của một container.
+- Nó giống như con trỏ, cho phép di chuyển qua các phần tử trong container
+
+Chúng làm giảm độ phức tạp và thời gian thực hiện của chương trình.
+ https://www.geeksforgeeks.org/iterators-c-stl/
+
+ ## 3. Algorithm
+
+ Thư viện STL (Standard Template Library) cung cấp một số thuật toán tiêu biểu thông qua algorithm. Các thuật toán này hoạt động trên các phạm vi hoặc các loại dữ liệu khác nhau, giúp thực hiện các nhiệm vụ như sắp xếp, tìm kiếm, chuyển đổi dữ liệu, và nhiều thao tác khác. 
+
+ 
+ vd thuật toán sắp xếp
+  ```C++
+  #include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+int main()
+{
+
+    vector <int> arr = {3,5,7,4,1};
+
+    for (auto const var : arr)
+    {
+        cout << "Vector: " << var << endl;
+    }
+
+    sort(arr.begin(), arr.end());
+    
+    cout << "vector after sort ascending: " << endl;
+
+    for (auto const var : arr)
+    {
+        cout << "Vector: " << var << endl;
+    }
+
+    sort(arr.begin(), arr.end(), greater<int>());
+    
+    cout << "vector after sort descending: " << endl;
+
+    for (auto const var : arr)
+    {
+        cout << "Vector: " << var << endl;
+    }
+
+    return 0;
+}
+
+
+ ```
+
+ vd thuật toán tìm kiếm
+
+ ```C++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+int main()
+{
+  
+    vector <int> arr1 = {2,5,7,4,9};
+    
+    auto it = find(arr1.begin(), arr1.end(), 5);
+    
+    if (it != arr1.end())
+    {
+        cout << "Da tim thay" << endl;
+        cout << *it;
+
+        int position = it - arr1.begin(); // Calculate the position
+        cout << "Vi tri cua phan tu: " << position << endl;
+    }
+    else
+    {
+        cout << "Khong tim thay" << endl;
+    }
+    
+    return 0;
+}
+
+
+ ```
