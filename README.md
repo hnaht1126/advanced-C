@@ -2225,4 +2225,151 @@ Vòng lặp tham chiếu	Không xảy ra	Có thể xảy ra	Dùng để giải q
 | Sở hữu tài nguyên | Duy nhất   | Chia sẻ  | Không sở hữu|
 | Bộ đếm tham chiếu   | Không có  | Có (tăng khi sao chép)  |Không làm tăng bộ đếm|
 |Vòng lặp tham chiếu| Không xảy ra| Có thể xảy ra| Dùng để giải quyết vòng lặp tham chiếu|
+## 6. Lambda
+Lambda trong C++ là một hàm ẩn danh (anonymous function) 
+được giới thiệu từ chuẩn C++11, 
+`cho phép định nghĩa một hàm tại chỗ mà không cần đặt tên`. 
+Lambda rất tiện lợi khi bạn cần sử dụng một hàm nhỏ gọn ngay tại chỗ
+ mà không muốn tạo hẳn một hàm riêng.
+
+### 1. Cấu trúc của Lambda:
+ Cấu trúc tổng quát của một lambda trong C++ như sau:
+```cpp
+[capture](parameters) -> return_type {
+    // Body của lambda
+};
+```
+- `[capture]`: Phần bắt biến (capture clause), xác định những biến bên ngoài được lambda sử dụng.
+- `(parameters)`: Danh sách tham số giống như một hàm thông thường.
+- `-> return_type`: (Tùy chọn) Kiểu trả về của lambda. Nếu không khai báo, C++ sẽ suy luận kiểu trả về tự động.
+- Body: Khối lệnh thực hiện công việc của lambda.
+
+### 2. Các dạng Lambda đơn giản
+1. Lambda cơ bản:
+``` cpp
+   #include <iostream>
+
+int main() {
+    auto say_hello = []() {
+        std::cout << "Hello, Lambda!" << std::endl;
+    };
+
+    say_hello(); // Gọi lambda
+    return 0;
+}
+```
+2. Lambda với tham số:
+```cpp
+#include <iostream>
+
+int main() {
+    auto add = [](int a, int b) -> int {
+        return a + b;
+    };
+
+    std::cout << "3 + 5 = " << add(3, 5) << std::endl;
+    return 0;
+}
+```
+
+3. Lambda bắt biến:
+    - Bắt biến bằng giá trị (=):
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10, y = 20;
+    auto add = [=]() {
+        return x + y; // Sử dụng x, y nhưng không thay đổi được chúng
+    };
+
+    std::cout << "x + y = " << add() << std::endl;
+    return 0;
+}
+```
+    - Bắt biến bằng tham chiếu(&):
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10, y = 20;
+    auto increment = [&]() {
+        x++;
+        y++;
+    };
+
+    increment();
+    std::cout << "x = " << x << ", y = " << y << std::endl;
+    return 0;
+}
+```
+    - Kết hợp bắt giá trị và tham chiếu:
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10, y = 20;
+    auto modify = [x, &y]() mutable {
+        x++; // x được sao chép nên chỉ thay đổi bản sao
+        y++; // y được tham chiếu nên thay đổi giá trị gốc
+    };
+
+    modify();
+    std::cout << "x = " << x << ", y = " << y << std::endl; // x = 10, y = 21
+    return 0;
+}
+```
+### 3. Sử dụng Lambda:
+1. **Trong các thuật toán chuẩn (STL)**: Lambda thường được dùng trong các hàm như `for_each`,`sort`, `find_if`,...
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+
+    // Lambda để in các phần tử
+    std::for_each(numbers.begin(), numbers.end(), [](int n) {
+        std::cout << n << " ";
+    });
+
+    std::cout << std::endl;
+
+    // Lambda để tìm phần tử lớn hơn 3
+    auto it = std::find_if(numbers.begin(), numbers.end(), [](int n) {
+        return n > 3;
+    });
+
+    if (it != numbers.end()) {
+        std::cout << "Phần tử đầu tiên lớn hơn 3 là: " << *it << std::endl;
+    }
+
+    return 0;
+}
+```
+2. **Trong Multithreading**:
+```cpp
+#include <iostream>
+#include <thread>
+
+int main() {
+    std::thread t([]() {
+        std::cout << "Thread đang chạy bằng lambda!" << std::endl;
+    });
+
+    t.join(); // Chờ thread kết thúc
+    return 0;
+}
+```
+3. **Định nghĩa inline trong các callback**: Lambda thường được dùng làm callback trong các thư viện.
+### 4. Ưu điểm:
+1. Ngắn gọn và dễ đọc khi cần một hàm nhỏ tại chỗ
+2. Tiện lợi khi sử dụng với STL hoặc multithreading.
+3. Hỗ trợ bắt biến (capture), giúp sử dụng các biến bên ngoài mà không cần truyền tham số.
+### 5. Nhược điểm:
+1. Lambda phức tạp có thể làm mã khó đọc.
+2. Sử dụng không cẩn thận với tham chiếu (&) có thể dẫn đến lỗi.
 
