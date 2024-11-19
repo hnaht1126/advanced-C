@@ -1776,3 +1776,453 @@ int main()
 
 
  ```
+
+# Bài 16: Generic Programming
+## 1. Template
+    công cụ trong C++, đơn giản kiểu truyền dữ liệu dưới dạng tham số để sử dụng cho nhiều kiểu dữ liệu khác nhau cho cùng 1 mã.
+
+- Write once, use for any data type
+## Hoạt động của template
+    Mẫu được mở rộng tại thời điểm biên dịch. Điều này giống như macro. Sự khác biệt là trình biên dịch thực hiện kiểm tra kiểu trước khi mở rộng mẫu. Ý tưởng rất đơn giản, mã nguồn chỉ chứa hàm/lớp, nhưng mã biên dịch có thể chứa nhiều bản sao của cùng một hàm/lớp.
+-Like MACRO, proceesed by compiler. But better than macro as type checking is beformed
+
+
+   ![image](https://github.com/user-attachments/assets/2e198602-fa34-4a76-bb7c-687f85fdb86f)
+
+
+
+## 1. Function template: 
+   Viết 1 hàm sử dụng cho nhiều kiểu dữ liệu khác nhau. Ví dụ về các mẫu hàm là sort(), max(), min(), printArray(). 
+
+- Sort, linear search, binary seach
+EX:
+```c++
+    // C++ Program to demonstrate
+// Use of template
+#include <iostream>
+using namespace std;
+
+// One function works for all data types. This would work
+// even for user defined types if operator '>' is overloaded
+template <typename T> 
+T myMax(T x, T y)
+{
+    return (x > y) ? x : y;
+}
+
+int main()
+{
+    // Call myMax for int
+    cout << myMax<int>(3, 7) << endl;
+    // int result = myMAx(3,7); cout << myMAx << endl;
+
+    // call myMax for double
+    cout << myMax<double>(3.0, 7.0) << endl;
+    // call myMax for char
+    cout << myMax<char>('g', 'e') << endl;
+
+    return 0;
+}
+```
+# 2. Class templates 
+Tương tự funtion templatres, áp dụng cho class. Cho phép viết một lớp chung sử dụng với nhiều kiểu dữ liệu khác nhau 
+- LinkedList, BinaryTree, Stack, Queue, Array, v.v. 
+
+``` c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename T>
+class MyContainer {
+private:
+    T element;
+
+public:
+    MyContainer(T val) : element(val) {}
+
+    T getValue() const {
+        return element;
+    }
+};
+
+int main()
+{
+
+    MyContainer<int> intContainer(42);
+    MyContainer<double> doubleContainer(3.14);
+    MyContainer<string> stringContainer("Trung");
+
+    int intValue = intContainer.getValue();
+    double doubleValue = doubleContainer.getValue();
+    string stringValue = stringContainer.getValue();
+
+    cout << "int value: " << intValue << endl;
+    cout << "double value: " << doubleValue << endl;
+    cout << "string value: " << stringValue << endl;
+
+    return 0;
+}
+
+```
+# 3. Advanced template techniques
+ ## 1. Metaprogramming
+ Mục đích: Tính toán giai thừa tại thời điểm biên dịch.
+ ```c++
+ #include <iostream>
+
+ using namespace std;
+ 
+template <unsigned int n>
+struct Factorial {
+ enum 
+ { 
+ value = n * Factorial<n - 1>::value 
+ };
+};
+ 
+template <>
+struct Factorial<0> {
+ enum { value = 1 };
+};
+
+int main() {
+ cout << "Factorial of 5 is " << Factorial<5>::value << endl;
+ return 0;
+}
+ 
+ ```
+## 2. Expression Templates
+Thực hiện một phép cộng đơn giản giữa hai số nguyên
+```c++
+#include <iostream>
+
+using namespace std;
+
+template <typename A, typename B>
+class AddExpr {
+private:
+    const A& a;
+    const B& b;
+
+public:
+    AddExpr(const A& a, const B& b) : a(a), b(b) {}
+
+    
+    int eval() const {
+        return a + b;
+    }
+};
+
+
+template <typename A, typename B>
+AddExpr<A, B> add(const A& a, const B& b) {
+    return AddExpr<A, B>(a, b);
+}
+
+int main() {
+    int x = 5,	y = 3;
+
+
+    auto expr = add(x, y);
+
+
+    cout << "Result: " << expr.eval() << endl; // Output: 8
+
+    return 0;
+}
+
+```
+## 3. Variadic Templates
+Mục đích: Tạo một hàm có thể chấp nhận số lượng tham số đầu vào không xác định.
+```c++
+#include <iostream>
+
+using namespace std;
+
+void print1()
+{
+    cout << endl;
+}
+
+template<typename T, typename... Rest>
+void print1(T first, Rest... rest) {
+    cout << first << endl;
+    print1(rest...);
+}
+
+
+template <typename... Args>
+void print(Args... args) {
+ (cout << ... << args) << '\n';
+}
+
+int main() {
+ print(1, 2, 3, "hello", 4.5, "Trung", 55);
+ return 0;
+}
+```
+
+https://www.geeksforgeeks.org/templates-cpp/
+
+
+
+
+# Bài 17 Smart Pointer - Lambda
+## 1. Cấp phát động trong C++
+new và delete là hai toán tử quan trọng trong C++ được sử dụng để cấp phát và giải phóng bộ nhớ động, tương ứng. Các toán tử này thường được sử dụng khi làm việc với đối tượng được cấp phát động, như là đối tượng được tạo trong vùng nhớ heap.
+```c++
+int *ptr = new int; // cấp phát bộ nhớ cho một biến kiểu int
+int *arr = new int[5]; // cấp phát bộ nhớ cho một mảng kiểu int với 5 phần tử
+
+delete ptr; // giải phóng bộ nhớ của biến động
+delete[] arr; // giải phóng bộ nhớ của mảng động
+
+```
+### Khái niệm
+Trong C++, smart pointers là một cơ chế quản lý bộ nhớ tự động 
+giúp giảm thiểu rủi ro của lỗi liên quan đến quản lý bộ nhớ 
+và giúp người lập trình tránh được việc quên giải phóng bộ nhớ 
+đã được cấp phát.
+
+```C++
+#include <iostream>
+using namespace std;
+ 
+ // tạo class để sủ dụng SmartPtr
+class SmartPtr {
+private:
+    int* ptr; 
+public:
+    SmartPtr(int* p = NULL) { ptr = p; }
+ 
+    ~SmartPtr() { delete (ptr); }
+ 
+    // Overloading dereferencing operator
+    int& operator*() { return *ptr; }
+    int getValue()
+    {
+        return *ptr;
+    }
+    // method lấy giá trị địa chỉ ptr
+    void setValue(int value)
+    {
+        *ptr = value;
+    }
+};
+ 
+int main()
+{
+    SmartPtr ptr(new int);
+    // *ptr = 20;
+    ptr.setValue(50);
+    cout << "Value: " << ptr.getValue() << endl;
+    // cout << "Value: " << *ptr << endl;
+  
+ 
+ 
+    return 0;
+}
+
+```
+## 2. Unique Pointer
+unique_ptr là một loại smart pointer trong C++, giúp quản lý bộ nhớ động và tự động giải phóng bộ nhớ khi không còn cần thiết. Nó được khai báo trong thư viện `<memory>` và được biểu diễn bởi lớp `std::unique_ptr`.
+
+### Đặc điểm:  
+1. Quyền sở hữu duy nhất:
+
+- Một std::unique_ptr chỉ có thể sở hữu một tài nguyên (ví dụ, một con trỏ) tại một thời điểm.
+- Không thể sao chép một std::unique_ptr sang một std::unique_ptr khác (copy semantics bị cấm). Điều này đảm bảo rằng chỉ có một thực thể duy nhất chịu trách nhiệm quản lý và giải phóng tài nguyên đó.
+2. Di chuyển quyền sở hữu (Move Semantics):
+
+- Quyền sở hữu của std::unique_ptr có thể được chuyển (moved) từ đối tượng này sang đối tượng khác bằng cách sử dụng `std::move`.
+3. Tự động giải phóng tài nguyên:
+
+- Khi một std::unique_ptr bị hủy (out of scope), nó tự động giải phóng tài nguyên mà nó sở hữu. Điều này giúp tránh lỗi rò rỉ bộ nhớ (memory leak).
+4. Hiệu quả:
+
+- std::unique_ptr nhẹ và hiệu quả vì nó không yêu cầu một bộ đếm tham chiếu (reference count) như std::shared_ptr.
+### Cách sử dụng
+```cpp
+#include <iostream>
+#include <memory> // Để sử dụng std::unique_ptr
+
+int main() {
+    // Tạo một unique_ptr quản lý một con trỏ
+    std::unique_ptr<int> ptr = std::make_unique<int>(10);
+
+    // Truy cập giá trị
+    std::cout << "Giá trị: " << *ptr << std::endl;
+
+    // Chuyển quyền sở hữu
+    std::unique_ptr<int> new_ptr = std::move(ptr);
+
+    if (!ptr) {
+        std::cout << "ptr không còn sở hữu tài nguyên!" << std::endl;
+    }
+
+    std::cout << "new_ptr giá trị: " << *new_ptr << std::endl;
+
+    // Khi new_ptr ra khỏi phạm vi, tài nguyên sẽ tự động được giải phóng.
+    return 0;
+}
+```
+### Ưu điểm: 
+
+1. Đảm bảo an toàn bộ nhớ (memory safety).
+2. Tránh lỗi double-delete hoặc rò rỉ bộ nhớ.
+3. Hỗ trợ mạnh mẽ cho các ứng dụng cần quản lý tài nguyên động.
+
+### Nhược điểm:
+1. Không phù hợp nếu cần chia sẻ quyền sở hữu tài nguyên giữa nhiều đối tượng (trường hợp này nên dùng std::shared_ptr).
+
+std::unique_ptr thường được sử dụng khi tài nguyên chỉ được sở hữu bởi `một đối tượng duy nhất`, như trong lập trình hướng đối tượng và các ứng dụng đa luồng.
+
+
+## 3. Shared Pointer
+Shared Pointer là một khái niệm trong lập trình C++ được cung cấp bởi lớp `std::shared_ptr` (thuộc thư viện `<memory>`). Nó cũng thuộc nhóm smart pointers, nhưng khác với `std::unique_ptr`, `std::shared_ptr` cho phép chia sẻ quyền sở hữu tài nguyên giữa nhiều con trỏ thông minh.
+
+### Đặc điểm 
+1. Chia sẻ quyền sở hữu( Shared Ownership):
+    - Nhiều `shared_ptr` có thể cùng sở hữu một tài nguyên duy nhất.
+    - Tài nguyên chỉ được giải phóng (hủy) khi tất cả các `shared_ptr` ngừng sử dụng tài nguyên đó (khi bộ đếm tham chiếu về 0).
+2. Bộ đếm tham chiếu (Reference Count):
+    - `shared_ptr` sử dụng một bộ đếm tham chiếu để theo dõi số lượng `shared_ptr` đang sở hữu cùng một tài nguyên.
+    - Khi một `shared_ptr`  mới được sao chép từ `shared_ptr` hiện tại, bộ đếm tham chiếu tăng lên.
+    - Khi một `shared_ptr` bị hủy hoặc được gán giá trị mới, bộ đếm tham chiếu giảm xuống.
+3. Quản lý tài nguyên tự động:
+    - Khi bộ đếm tham chiếu về 0, `shared_ptr` tự động giải phóng tài nguyên mà nó sở hữu.
+4. Hiệu quả hơn `unique_ptr` trong trường hợp **chia sẻ tài nguyên**, nhưng có chi phí thêm để duy trì bộ nhớ tham chiếu.
+### Cách sử dụng: 
+ ``` cpp
+#include <iostream>
+#include <memory> // Để sử dụng std::shared_ptr
+
+int main() {
+    // Tạo shared_ptr quản lý một con trỏ
+    std::shared_ptr<int> ptr1 = std::make_shared<int>(10);
+
+    // Tạo shared_ptr khác chia sẻ quyền sở hữu với ptr1
+    std::shared_ptr<int> ptr2 = ptr1;
+
+    std::cout << "Giá trị: " << *ptr1 << std::endl;
+    std::cout << "Bộ đếm tham chiếu: " << ptr1.use_count() << std::endl;
+
+    {
+        // Thêm một shared_ptr trong scope mới
+        std::shared_ptr<int> ptr3 = ptr1;
+        std::cout << "Bộ đếm tham chiếu trong scope: " << ptr1.use_count() << std::endl;
+    }
+
+    // Ra khỏi scope, bộ đếm tham chiếu giảm
+    std::cout << "Bộ đếm tham chiếu sau scope: " << ptr1.use_count() << std::endl;
+
+    return 0;
+}
+
+ ```
+### Ưu điểm:
+1. Quản lý tài nguyên chia sẻ một cách an toàn.
+2. Tự động giải phóng tài nguyên khi không còn sử dụng, giảm nguy cơ rò rỉ bộ nhớ (memory leak).
+3. Dễ dàng sử dụng trong các cấu trúc phức tạp như đồ thị (graph) hoặc cây (tree), nơi tài nguyên có thể được tham chiếu từ nhiều nơi.
+### Nhược điểm:
+1. Chi phí bộ đếm tham chiếu:
+    - Quá trình tăng/giảm bộ đếm tham chiếu có thể gây ảnh hưởng hiệu năng trong một số trường hợp.
+2. Vấn đề vòng lặp tham chiếu (Circular References):
+    - Nếu hai `shared_ptr` tham chiếu lẫn nhau (vòng lặp tham chiếu), tài nguyên sẽ không bao giờ được giải phóng. Trường hợp này cần dùng `weak_ptr`.
+
+## 4. Weak Pointer 
+Weak Pointer là một loại smart pointer trong C++ được cung cấp bởi lớp `std::weak_ptr`, nằm trong thư viện `<memory>`. Nó thường được sử dụng cùng với `std::shared_ptr` để giải quyết vấn đề vòng lặp tham chiếu (circular references), một trong những nhược điểm lớn của `std::shared_ptr`.
+
+### Đặc điểm 
+1. Không sở hữu tài nguyên:
+    - `weak_ptr` không trực tiếp sở hữu tài nguyên mà nó trỏ tới.
+    - Nó hoạt động như một "quan sát viên" (observer) của tài nguyên được quản lý bởi `shared_ptr`
+2. Không tăng bộ đếm tham chiếu:
+    - Khi một `weak_ptr` trỏ đến tài nguyên được quản lý bởi `shared_ptr`, nó không làm tăng bộ đếm tham chiếu của `shared_ptr`.
+3. Giải quyết vòng lặp tham chiếu:
+    - `weak_ptr` được dùng để phá vỡ các vòng lặp tham chiếu, đảm bảo tài nguyên được giải phóng khi không còn ai sử dụng nó.
+4. Kiểm tra hợp lệ:
+    - Vì không sở hữu tài nguyên, `weak_ptr có thể trở nên không hợp lệ nếu tài nguyên mà nó quan sát đã bị giải phóng.
+    - Dùng hàm `expired()` hoặc chuyển đổi thành `shared_ptr` bằng cách gọi `lock()` để kiểm tra và sử dụng tài nguyên.
+
+### Cách sử dụng:
+```cpp
+#include <iostream>
+#include <memory>
+
+int main() {
+    // Tạo shared_ptr quản lý tài nguyên
+    std::shared_ptr<int> shared = std::make_shared<int>(100);
+
+    // Tạo weak_ptr quan sát shared_ptr
+    std::weak_ptr<int> weak = shared;
+
+    // Kiểm tra trạng thái của weak_ptr
+    if (auto sp = weak.lock()) { // Chuyển weak_ptr thành shared_ptr
+        std::cout << "Tài nguyên còn tồn tại: " << *sp << std::endl;
+    } else {
+        std::cout << "Tài nguyên đã bị giải phóng." << std::endl;
+    }
+
+    // Giải phóng shared_ptr
+    shared.reset();
+
+    // Kiểm tra lại weak_ptr
+    if (weak.expired()) {
+        std::cout << "Tài nguyên không còn tồn tại." << std::endl;
+    }
+
+    return 0;
+}
+```
+### Ví dụ vòng lặp tham chiếu:
+Trong trường hợp hai `std::shared_ptr` tham chiếu lẫn nhau, tài nguyên sẽ không bao giờ được giải phóng. `std::weak_ptr` có thể được sử dụng để khắc phục điều này.
+
+**Mô hình vòng lặp tham chiếu:**
+```cpp
+#include <iostream>
+#include <memory>
+
+struct Node {
+    std::shared_ptr<Node> next;
+    std::weak_ptr<Node> prev; // Dùng weak_ptr để phá vỡ vòng lặp
+    Node() { std::cout << "Node được tạo.\n"; }
+    ~Node() { std::cout << "Node bị hủy.\n"; }
+};
+
+int main() {
+    auto node1 = std::make_shared<Node>();
+    auto node2 = std::make_shared<Node>();
+
+    // Tạo liên kết hai chiều giữa node1 và node2
+    node1->next = node2;
+    node2->prev = node1;
+
+    // Khi node1 và node2 ra khỏi scope, tài nguyên được giải phóng
+    return 0;
+}
+```
+### Ưu điểm:
+1. Giải quyết vòng lặp tham chiếu:
+    - Đảm bảo các tài nguyên được giải phóng đúng cách.
+2. Kiểm soát tài nguyên một cách linh hoạt:
+    - Cho phép truy cập tài nguyên mà không sở hữu nó.
+### Nhược điểm:
+1. Không thể trực tiếp truy cập tài nguyên:
+    - Phải chuyển đổi sang std::shared_ptr bằng cách sử dụng lock().
+
+## So sánh unique_ptr, shared_ptr và weak_ptr
+
+|Đặc điểm	|std::unique_ptr|	std::shared_ptr|	std::weak_ptr|
+
+Sở hữu tài nguyên	Duy nhất	Chia sẻ	Không sở hữu
+Bộ đếm tham chiếu	Không có	Có (tăng khi sao chép)	Không làm tăng bộ đếm
+Vòng lặp tham chiếu	Không xảy ra	Có thể xảy ra	Dùng để giải quyết vấn đề này
+
+| Đặc điểm  | unique_ptr | shared_ptr | weak_ptr|
+| --------  | --------   | --------   | ------- |
+| Sở hữu tài nguyên | Duy nhất   | Chia sẻ  | Không sở hữu|
+| Bộ đếm tham chiếu   | Không có  | Có (tăng khi sao chép)  |Không làm tăng bộ đếm|
+|Vòng lặp tham chiếu| Không xảy ra| Có thể xảy ra| Dùng để giải quyết vòng lặp tham chiếu|
+
